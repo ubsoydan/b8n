@@ -1,3 +1,5 @@
+import NavBar from "components/layout/NavBar";
+import Footer from "components/layout/Footer";
 import "./globals.css";
 
 export const metadata = {
@@ -14,11 +16,11 @@ export default function RootLayout({
         <html lang="tr">
             <body>
                 <div className="fixed h-screen w-full bg-gradient-to-br from-indigo-100 via-white to-cyan-200" />
-                {/* nav */}
+                <NavBar />
                 <main className="flex min-h-screen w-full flex-col items-center justify-center py-32">
                     {children}
                 </main>
-                {/* footer */}
+                <Footer />
                 {/* analytics */}
             </body>
         </html>
