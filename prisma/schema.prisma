@@ -10,53 +10,37 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-model User {
-  id        String   @id @default(uuid())
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
-
-  email     String @unique
-  password  String
-  firstName String
-  lastName  String
-
-  chargeQueries Charge[]
-  comments       Comment[]
-}
-
 model Charge {
-  id        String   @id @default(uuid())
+  name         String  @unique @id
+
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 
-  name         String  @unique
   description  String?
   companyName  String?
   website      String?
   contactWeb   String?
   contactPhone String?
 
-  deleted Boolean @default(false)
-
-  queryByUserId String
-  queryBy       User      @relation(fields: [queryByUserId], references: [id])
   comments       Comment[]
 }
 
 model Comment {
   id        String   @id @default(uuid())
+  email String @unique
+  displayName String
+
+  content String
+  
+  likeCounter Int?
+  dislikeCounter Int?
+
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 
-  content String
-  helpfulCounter Int?
-  notHelpfulCounter Int?
 
   deleted Boolean @default(false)
 
-  ownerId String
-  owner   User   @relation(fields: [ownerId], references: [id])
-
-  chargeId String
-  charge   Charge @relation(fields: [chargeId], references: [id])
+  chargeName String
+  charge   Charge @relation(fields: [chargeName], references: [name])
 }

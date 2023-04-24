@@ -1,46 +1,30 @@
-import { db } from "@/lib/db";
+import { PrismaClient } from "@prisma/client";
+// import { db } from "@/lib/db";
+
+// need to import the client from db to prevent violating db connection limit tho. thats the reason for db.ts
+const prisma = new PrismaClient();
 
 async function main() {
-    const user = await db.user.upsert({
-        where: { email: "user@email.com" },
-        update: {},
-        create: {
-            email: "user@email.com",
-            firstName: "User",
-            lastName: "Person",
-            password: "password",
-            chargeQueries: {
-                create: new Array(5).fill(1).map((_, i) => ({
-                    name: `Charge Query ${i}`,
-                })),
-            },
-        },
-        include: {
-            chargeQueries: true,
-        },
+    const charge = await prisma.charge.createMany({
+        data: [
+            { name: "Arçelik" },
+            { name: "Burger King" },
+            { name: "Starbucks" },
+            { name: "Defacto" },
+            { name: "A101" },
+            { name: "Koton" },
+            { name: "Mavi Jeans" },
+        ],
     });
-
-    const comments = await Promise.all(
-        user.chargeQueries.map((query) =>
-            db.comment.createMany({
-                data: new Array(10).fill(1).map((_, i) => {
-                    return {
-                        content: `Comment number ${i}`,
-                        ownerId: user.id,
-                        chargeId: query.id,
-                    };
-                }),
-            })
-        )
-    );
-    console.log({ user, comments });
+    console.log("Created some charges! -->", charge.count);
 }
+
 main()
     .then(async () => {
-        await db.$disconnect();
+        await prisma.$disconnect();
     })
     .catch(async (e) => {
         console.error(e);
-        await db.$disconnect();
+        await prisma.$disconnect();
         process.exit(1);
     });
