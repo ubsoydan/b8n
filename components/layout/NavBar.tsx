@@ -26,9 +26,9 @@ export default function NavBar() {
                         {/* imagehere */}
                         <p>Bilinmeyen Harcama</p>
                     </Link>
-                    <div>
+                    {/* <div>
                         <Button size="sm">Giris Yap</Button>
-                    </div>
+                    </div> */}
                 </div>
             </div>
         </>
