@@ -1,4 +1,4 @@
-import Card from "./Card";
+import Card from "./ui/feature-card";
 import { Input } from "./ui/input";
 import { Button } from "./ui/button";
 
