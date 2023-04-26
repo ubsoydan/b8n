@@ -1,6 +1,6 @@
 export default function ChargeHeader() {
     return (
-        <header className="relative">
+        <header>
             <h1 className="text-4xl font-semibold">
                 HARCAMA BOYLE GORUNECEKTIR
             </h1>

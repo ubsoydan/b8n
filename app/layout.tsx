@@ -15,13 +15,14 @@ export default function RootLayout({
     return (
         <html lang="tr">
             <body>
-                <div className="fixed h-screen w-full bg-gradient-to-br from-indigo-100 via-white to-cyan-200" />
-                <NavBar />
-                <main className="flex min-h-screen w-full flex-col items-center justify-center py-32">
-                    {children}
-                </main>
-                <Footer />
-                {/* analytics */}
+                <div className="h-full w-full bg-gradient-to-br from-indigo-100 via-white to-cyan-200">
+                    <NavBar />
+                    <main className="flex min-h-screen w-full flex-col items-center justify-center py-32">
+                        {children}
+                    </main>
+                    <Footer />
+                    {/* analytics */}
+                </div>
             </body>
         </html>
     );

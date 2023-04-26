@@ -5,7 +5,7 @@ type CardProps = React.ComponentProps<typeof Card>;
 
 export default function ChargeCompanyInfo({ className, ...props }: CardProps) {
     return (
-        <Card className={cn("relative w-72", className)} {...props}>
+        <Card className={cn("w-72", className)} {...props}>
             <CardContent className={cn("mt-2", className)}>
                 <p className="mt-2 text-md font-md leading-none">Isletme adi</p>
 

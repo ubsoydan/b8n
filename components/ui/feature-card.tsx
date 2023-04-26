@@ -13,7 +13,7 @@ export default function Card({
     children: ReactNode;
 }) {
     return (
-        <div className="relative px-10 col-span-1 overflow-hidden rounded-xl border border-gray-200 bg-white shadow-md md:col-span-2">
+        <div className="px-10 col-span-1 overflow-hidden rounded-xl border border-gray-200 bg-white shadow-md md:col-span-2">
             {reverseOrder ? (
                 <>
                     <div className="flex h-60 items-center justify-center">

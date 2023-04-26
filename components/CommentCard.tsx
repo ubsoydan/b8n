@@ -11,7 +11,7 @@ import {
 
 export default function CommentCard() {
     return (
-        <div className="relative max-w-xl mx-auto">
+        <div className="max-w-xl mx-auto">
             <Card>
                 <CardContent>
                     <p className="whitespace-pre-wrap">

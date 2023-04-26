@@ -1,6 +1,6 @@
 export default function AboutCharge() {
     return (
-        <div className="relative max-w-3xl mx-auto">
+        <div className="max-w-3xl mx-auto">
             <h3 className="text-xl font-semibold">Bu Harcama Hakkinda</h3>
             <article className="whitespace-pre-wrap">
                 Lorem ipsum dolor sit amet consectetur adipisicing elit. Illo,
