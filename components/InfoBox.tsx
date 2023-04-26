@@ -1,4 +1,4 @@
-import Card from "./Card";
+import Card from "./ui/feature-card";
 
 export default function InfoBox() {
     return (
