@@ -7,13 +7,13 @@ const prisma = new PrismaClient();
 async function main() {
     const charge = await prisma.charge.createMany({
         data: [
-            { name: "Arçelik" },
-            { name: "Burger King" },
-            { name: "Starbucks" },
-            { name: "Defacto" },
-            { name: "A101" },
-            { name: "Koton" },
-            { name: "Mavi Jeans" },
+            { name: "Arçelik", viewsCount: 14 },
+            { name: "Burger King", viewsCount: 39 },
+            { name: "Starbucks", viewsCount: 125 },
+            { name: "Defacto", viewsCount: 4 },
+            { name: "A101", viewsCount: 2534 },
+            { name: "Koton", viewsCount: 55 },
+            { name: "Mavi Jeans", viewsCount: 889 },
         ],
     });
     console.log("Created some charges! -->", charge.count);
