@@ -2,7 +2,7 @@ import Image from "next/image";
 import { Inter } from "next/font/google";
 
 import SearchBox from "components/SearchBox";
-import InfoBox from "components/InfoBox";
+import VerticalBanner from "components/VerticalBanner";
 import MostPopularCharges from "components/MostPopularCharges";
 import MostRecentCharges from "components/MostRecentCharges";
 
@@ -21,7 +21,7 @@ export default function Home() {
                 </div>
             </div>
             <div>
-                <InfoBox />
+                <VerticalBanner />
             </div>
         </div>
     );
