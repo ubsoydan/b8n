@@ -28,16 +28,13 @@ export default async function ChargePage({ params }: ChargePageProps) {
         throw new Error("boyle bi kayit yok");
     }
 
-    // non-null assertion for description prop
-    const description: string = charge.description!;
-
     return (
         <div>
             <ChargeHeader header={charge.name} />
             <HorizontalBanner />
             <div className="flex">
                 <div>
-                    <AboutCharge description={description} />
+                    <AboutCharge description={charge.description} />
                     <CommentCard />
                     <CommentCard />
                     <CommentCard />
@@ -54,7 +51,12 @@ export default async function ChargePage({ params }: ChargePageProps) {
                     <AddComment />
                 </div>
                 <div>
-                    <ChargeCompanyInfo />
+                    <ChargeCompanyInfo
+                        companyName={charge.companyName}
+                        website={charge.website}
+                        contactWeb={charge.contactWeb}
+                        contactPhone={charge.contactPhone}
+                    />
                     <VerticalBanner />
                 </div>
             </div>

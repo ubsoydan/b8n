@@ -1,5 +1,5 @@
 interface AboutChargeProps {
-    description?: string;
+    description?: string | null;
 }
 
 export default function AboutCharge({ description }: AboutChargeProps) {
