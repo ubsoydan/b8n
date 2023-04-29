@@ -1,10 +1,10 @@
 import Image from "next/image";
 import { Inter } from "next/font/google";
 
-import SearchBox from "components/SearchBox";
+import SearchBox from "components/home/SearchBox";
 import VerticalBanner from "components/VerticalBanner";
-import MostPopularCharges from "components/MostPopularCharges";
-import MostRecentCharges from "components/MostRecentCharges";
+import MostPopularCharges from "components/home/MostPopularCharges";
+import MostRecentCharges from "components/home/MostRecentCharges";
 
 const inter = Inter({ subsets: ["latin"] });
 

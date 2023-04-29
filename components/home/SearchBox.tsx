@@ -1,6 +1,6 @@
-import Card from "./ui/feature-card";
-import { Input } from "./ui/input";
-import { Button } from "./ui/button";
+import Card from "components/ui/feature-card";
+import { Input } from "components/ui/input";
+import { Button } from "components/ui/button";
 
 export default function SearchBox() {
     return (

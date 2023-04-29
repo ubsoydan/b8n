@@ -1,8 +1,8 @@
-import AboutCharge from "components/AboutCharge";
-import AddComment from "components/AddComment";
-import ChargeCompanyInfo from "components/ChargeCompanyInfo";
-import ChargeHeader from "components/ChargeHeader";
-import CommentCard from "components/CommentCard";
+import AboutCharge from "components/charge-page/AboutCharge";
+import AddComment from "components/charge-page/AddComment";
+import ChargeCompanyInfo from "components/charge-page/ChargeCompanyInfo";
+import ChargeHeader from "components/charge-page/ChargeHeader";
+import CommentCard from "components/charge-page/CommentCard";
 import HorizontalBanner from "components/HorizontalBanner";
 import VerticalBanner from "components/VerticalBanner";
 

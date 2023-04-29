@@ -5,7 +5,7 @@ import {
     CardFooter,
     CardHeader,
     CardTitle,
-} from "./ui/card";
+} from "../ui/card";
 
 import ChargeItem from "./ChargeItem";
 import { db } from "@/lib/db";
