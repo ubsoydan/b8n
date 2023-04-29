@@ -13,6 +13,9 @@ async function getCharge(chargeName: Charge["name"]) {
         where: {
             name: chargeName,
         },
+        include: {
+            comments: true,
+        },
     });
 }
 
@@ -28,6 +31,8 @@ export default async function ChargePage({ params }: ChargePageProps) {
         throw new Error("boyle bi kayit yok");
     }
 
+    const comments = charge.comments;
+
     return (
         <div>
             <ChargeHeader header={charge.name} />
@@ -35,19 +40,18 @@ export default async function ChargePage({ params }: ChargePageProps) {
             <div className="flex">
                 <div>
                     <AboutCharge description={charge.description} />
-                    <CommentCard />
-                    <CommentCard />
-                    <CommentCard />
-                    <CommentCard />
-                    <CommentCard />
-                    <CommentCard />
-                    <CommentCard />
-                    <CommentCard />
-                    <CommentCard />
-                    <CommentCard />
-                    <CommentCard />
-                    <CommentCard />
-
+                    {comments.map((comment) => {
+                        return (
+                            <CommentCard
+                                key={comment.id}
+                                content={comment.content}
+                                commentor={comment.displayName}
+                                likeCount={comment.likeCounter}
+                                dislikeCount={comment.dislikeCounter}
+                                date={comment.createdAt}
+                            />
+                        );
+                    })}
                     <AddComment />
                 </div>
                 <div>
