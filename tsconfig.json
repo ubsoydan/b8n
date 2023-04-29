@@ -33,7 +33,8 @@
         "**/*.ts",
         "**/*.tsx",
         ".next/types/**/*.ts",
-        "app/(charge)/[id]/page.tsx"
+        "app/(charge)/[id]/page.tsx",
+        "components/home/ChargeItem.tsx"
     ],
     "exclude": ["node_modules"]
 }

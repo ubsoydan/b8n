@@ -12,7 +12,9 @@ datasource db {
 
 model Charge {
   name         String  @unique @id
-
+  id Int @default(autoincrement())
+  viewsCount Int @default(0)
+  
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 
@@ -23,6 +25,8 @@ model Charge {
   contactPhone String?
 
   comments       Comment[]
+
+  @@index([viewsCount])
 }
 
 model Comment {
