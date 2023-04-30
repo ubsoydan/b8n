@@ -13,7 +13,7 @@ import { db } from "@/lib/db";
 async function getCharges() {
     const res = await db.charge.findMany({
         orderBy: { id: "desc" },
-        take: 3,
+        take: 10,
     });
     return res;
 }

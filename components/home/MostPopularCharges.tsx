@@ -5,7 +5,7 @@ import { Card, CardHeader, CardTitle, CardContent } from "components/ui/card";
 async function getCharges() {
     const res = await db.charge.findMany({
         orderBy: { viewsCount: "desc" },
-        take: 5,
+        take: 10,
     });
     return res;
 }
