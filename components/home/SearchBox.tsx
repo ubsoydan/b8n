@@ -5,8 +5,8 @@ import {
     CardHeader,
     CardDescription,
 } from "components/ui/card";
-import { Input } from "components/ui/input";
-import { Button } from "components/ui/button";
+import SearchForm from "./SearchForm";
+SearchForm;
 
 export default function SearchBox() {
     return (
@@ -20,17 +20,7 @@ export default function SearchBox() {
                 </CardDescription>
             </CardHeader>
             <CardContent>
-                <div className="flex">
-                    <form action="/api/charges/[id]" method="get">
-                        <Input
-                            type="text"
-                            placeholder="Bilinmeyen harcamanizi girin..."
-                        />
-                        <Button type="submit" className="ml-6 px-10">
-                            Sorgula
-                        </Button>
-                    </form>
-                </div>
+                <SearchForm />
             </CardContent>
         </Card>
     );
