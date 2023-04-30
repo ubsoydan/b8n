@@ -1,3 +1,5 @@
+import { db } from "@/lib/db";
+import { Charge } from "@prisma/client";
 import AboutCharge from "components/charge-page/AboutCharge";
 import AddComment from "components/charge-page/AddComment";
 import ChargeCompanyInfo from "components/charge-page/ChargeCompanyInfo";
@@ -6,31 +8,59 @@ import CommentCard from "components/charge-page/CommentCard";
 import HorizontalBanner from "components/HorizontalBanner";
 import VerticalBanner from "components/VerticalBanner";
 
-export default function chargePage() {
+async function getCharge(chargeName: Charge["name"]) {
+    return await db.charge.findUnique({
+        where: {
+            name: chargeName,
+        },
+        include: {
+            comments: true,
+        },
+    });
+}
+
+interface ChargePageProps {
+    params: { id: string };
+}
+
+export default async function ChargePage({ params }: ChargePageProps) {
+    const charge = await getCharge(params.id);
+
+    if (!charge || charge === null) {
+        // put an error page here later
+        throw new Error("boyle bi kayit yok");
+    }
+
+    const comments = charge.comments;
+
     return (
         <div>
-            <ChargeHeader />
+            <ChargeHeader header={charge.name} />
             <HorizontalBanner />
             <div className="flex">
                 <div>
-                    <AboutCharge />
-                    <CommentCard />
-                    <CommentCard />
-                    <CommentCard />
-                    <CommentCard />
-                    <CommentCard />
-                    <CommentCard />
-                    <CommentCard />
-                    <CommentCard />
-                    <CommentCard />
-                    <CommentCard />
-                    <CommentCard />
-                    <CommentCard />
-
+                    <AboutCharge description={charge.description} />
+                    {comments.map((comment) => {
+                        return (
+                            <CommentCard
+                                key={comment.id}
+                                content={comment.content}
+                                commentor={comment.displayName}
+                                likeCount={comment.likeCounter}
+                                dislikeCount={comment.dislikeCounter}
+                                date={comment.createdAt}
+                            />
+                        );
+                    })}
                     <AddComment />
                 </div>
                 <div>
-                    <ChargeCompanyInfo />
+                    <ChargeCompanyInfo
+                        companyName={charge.companyName}
+                        website={charge.website}
+                        contactWeb={charge.contactWeb}
+                        contactPhone={charge.contactPhone}
+                    />
                     <VerticalBanner />
                 </div>
             </div>

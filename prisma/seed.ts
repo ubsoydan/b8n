@@ -9,10 +9,30 @@ async function main() {
         data: [
             { name: "Arçelik", viewsCount: 14 },
             { name: "Burger King", viewsCount: 39 },
-            { name: "Starbucks", viewsCount: 125 },
-            { name: "Defacto", viewsCount: 4 },
-            { name: "A101", viewsCount: 2534 },
-            { name: "Koton", viewsCount: 55 },
+            {
+                name: "Starbucks",
+                viewsCount: 125,
+                description:
+                    "Global coffeehouse chain known for its premium coffee, signature drinks, and cozy ambiance.",
+            },
+            {
+                name: "Defacto",
+                viewsCount: 4,
+                description:
+                    "Turkish fashion brand offering trendy and affordable clothing for men, women, and children.",
+            },
+            {
+                name: "A101",
+                viewsCount: 2534,
+                description:
+                    "Discount retail chain in Turkey offering a variety of groceries, household items, and personal care products at affordable prices.",
+            },
+            {
+                name: "Koton",
+                viewsCount: 55,
+                description:
+                    "Turkish clothing brand with a wide range of fashionable apparel, accessories, and footwear.",
+            },
             { name: "Mavi Jeans", viewsCount: 889 },
         ],
     });
@@ -64,6 +84,51 @@ async function main() {
                 likeCounter: 601,
                 dislikeCounter: 53,
                 chargeName: "Koton",
+            },
+            {
+                email: "jennifer_aniston@example.com",
+                displayName: "Jennifer Aniston",
+                content:
+                    "I was surprised to see a Starbucks charge on my card. I haven't been to Starbucks in weeks!",
+                likeCounter: 435,
+                dislikeCounter: 19,
+                chargeName: "Starbucks",
+            },
+            {
+                email: "leonardo_dicaprio@example.com",
+                displayName: "Leonardo DiCaprio",
+                content:
+                    "This Starbucks charge is making me suspicious. I hope my card hasn't been compromised.",
+                likeCounter: 621,
+                dislikeCounter: 56,
+                chargeName: "Starbucks",
+            },
+            {
+                email: "angelina_jolie@example.com",
+                displayName: "Angelina Jolie",
+                content:
+                    "I got charged by Starbucks for a coffee that I didn't even buy. This is frustrating!",
+                likeCounter: 125,
+                dislikeCounter: 67,
+                chargeName: "Starbucks",
+            },
+            {
+                email: "brad_pitt@example.com",
+                displayName: "Brad Pitt",
+                content:
+                    "I don't know what this A101 charge is for. I haven't even heard of this store!",
+                likeCounter: 391,
+                dislikeCounter: 14,
+                chargeName: "A101",
+            },
+            {
+                email: "scarlett_johansson@example.com",
+                displayName: "Scarlett Johansson",
+                content:
+                    "I'm pretty sure I didn't make this A101 purchase. Has anyone else experienced this?",
+                likeCounter: 267,
+                dislikeCounter: 46,
+                chargeName: "A101",
             },
         ],
     });

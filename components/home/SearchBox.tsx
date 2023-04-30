@@ -1,18 +1,27 @@
-import Card from "components/ui/feature-card";
-import { Input } from "components/ui/input";
-import { Button } from "components/ui/button";
+import {
+    Card,
+    CardContent,
+    CardTitle,
+    CardHeader,
+    CardDescription,
+} from "components/ui/card";
+import SearchForm from "./SearchForm";
+SearchForm;
 
 export default function SearchBox() {
     return (
-        <div className="w-[50rem]">
-            <Card
-                title="Sorgula"
-                description="Bilmedigin bir harcamayi buradan sorgulayabilirsin"
-                reverseOrder
-            >
-                <Input />
-                <Button className="ml-6">Sorgula</Button>
-            </Card>
-        </div>
+        <Card className="w-[48rem]">
+            <CardHeader>
+                <CardTitle>Sorgula</CardTitle>
+                <CardDescription>
+                    Banka dekontunuzda veya harcama detayinda yer alan
+                    harcamanin ismini girerek bilinmeyen harcamanizi
+                    ogrenebilirsiniz.
+                </CardDescription>
+            </CardHeader>
+            <CardContent>
+                <SearchForm />
+            </CardContent>
+        </Card>
     );
 }
