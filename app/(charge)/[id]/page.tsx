@@ -9,9 +9,11 @@ import HorizontalBanner from "components/HorizontalBanner";
 import VerticalBanner from "components/VerticalBanner";
 
 async function getCharge(chargeName: Charge["name"]) {
+    const decodedChargeName = chargeName.replace(/-/g, " ");
+
     return await db.charge.findUnique({
         where: {
-            name: chargeName,
+            name: decodedChargeName,
         },
         include: {
             comments: true,
