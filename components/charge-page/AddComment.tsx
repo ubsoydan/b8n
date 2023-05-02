@@ -1,3 +1,4 @@
+"use client";
 import {
     Select,
     SelectContent,
@@ -10,10 +11,49 @@ import { Input } from "components/ui/input";
 import { Label } from "components/ui/label";
 import { Button } from "components/ui/button";
 import { Textarea } from "components/ui/textarea";
+import { useState } from "react";
+import { useRouter } from "next/navigation";
 
-export default function AddComment() {
+interface AddCommentProps {
+    charge: string;
+}
+
+export default function AddComment({ charge }: AddCommentProps) {
+    const [name, setName] = useState("");
+    const [email, setEmail] = useState("");
+    const [content, setContent] = useState("");
+    const chargeName = charge;
+
+    const router = useRouter();
+
+    async function postComment(event: React.FormEvent) {
+        event.preventDefault();
+
+        const res = await fetch("/api/comment", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify({
+                displayName: name,
+                email: email,
+                content: content,
+                chargeName: chargeName,
+            }),
+        });
+
+        const comment = await res.json();
+        console.log("this is the post req from addcomment", comment);
+
+        setName("");
+        setEmail("");
+        setContent("");
+        // Refresh to see new comment
+        router.refresh();
+    }
+
     return (
-        <div className="flex">
+        <form onSubmit={postComment} className="flex">
             <div className="flex flex-col">
                 <div id="comment-type">
                     <Select>
@@ -35,38 +75,42 @@ export default function AddComment() {
                         </SelectContent>
                     </Select>
                 </div>
-                <div
-                    id="commentor-name"
-                    className="grid w-full max-w-xs items-center gap-1.5"
-                >
-                    <Label htmlFor="commentor-name">Isminiz</Label>
+                <div className="grid w-full max-w-xs items-center gap-1.5">
+                    <Label htmlFor="commentorName">Isminiz</Label>
                     <Input
                         type="text"
-                        id="commentor-name"
+                        id="commentorName"
                         aria-placeholder="Isminizi giriniz..."
+                        value={name}
+                        onChange={(e) => setName(e.target.value)}
+                        required
                     />
                 </div>
-                <div
-                    id="commentor-email"
-                    className="grid w-full max-w-xs items-center gap-1.5"
-                >
-                    <Label htmlFor="commentor-email">E-posta</Label>
+                <div className="grid w-full max-w-xs items-center gap-1.5">
+                    <Label htmlFor="commentorEmail">E-posta</Label>
                     <Input
                         type="text"
-                        id="commentor-email"
+                        id="commentorEmail"
                         aria-placeholder="E-posta adresinizi giriniz..."
+                        value={email}
+                        onChange={(e) => setEmail(e.target.value)}
+                        required
                     />
                 </div>
                 <div aria-label="Yorumu gonder">
-                    <Button>Yorumu gonder</Button>
+                    <Button type="submit">Yorumu gonder</Button>
                 </div>
             </div>
             <div className="flex flex-col">
                 <div className="grid w-full gap-1.5">
-                    <Label htmlFor="message-2">Yorumunuzu yaziniz...</Label>
+                    <Label htmlFor="content">Yorumunuzu yaziniz...</Label>
                     <Textarea
                         placeholder="Type your message here."
-                        id="message-2"
+                        id="content"
+                        name="content"
+                        value={content}
+                        onChange={(e) => setContent(e.target.value)}
+                        required
                     />
                     <p className="text-sm text-muted-foreground">
                         Yorumunuzu aciklayici bir sekilde yaziniz. Varsa link
@@ -74,6 +118,6 @@ export default function AddComment() {
                     </p>
                 </div>
             </div>
-        </div>
+        </form>
     );
 }
