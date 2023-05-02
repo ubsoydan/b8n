@@ -9,11 +9,9 @@ import HorizontalBanner from "components/HorizontalBanner";
 import VerticalBanner from "components/VerticalBanner";
 
 async function getCharge(chargeName: Charge["name"]) {
-    const decodedChargeName = chargeName.replace(/-/g, " ");
-
     return await db.charge.findUnique({
         where: {
-            name: decodedChargeName,
+            name: chargeName,
         },
         include: {
             comments: true,
@@ -26,7 +24,9 @@ interface ChargePageProps {
 }
 
 export default async function ChargePage({ params }: ChargePageProps) {
-    const charge = await getCharge(params.id);
+    const decodedChargeName = decodeURI(params.id.replace(/-/g, " "));
+
+    const charge = await getCharge(decodedChargeName);
 
     if (!charge || charge === null) {
         // put an error page here later
@@ -54,14 +54,14 @@ export default async function ChargePage({ params }: ChargePageProps) {
                             />
                         );
                     })}
-                    <AddComment />
+                    <AddComment charge={decodedChargeName} />
                 </div>
                 <div>
                     <ChargeCompanyInfo
-                        companyName={charge.companyName}
+                        companyname={charge.companyName}
                         website={charge.website}
-                        contactWeb={charge.contactWeb}
-                        contactPhone={charge.contactPhone}
+                        contactweb={charge.contactWeb}
+                        contactphone={charge.contactPhone}
                     />
                     <VerticalBanner />
                 </div>
