@@ -33,6 +33,7 @@ model Comment {
   id        String   @id @default(uuid())
   email String @unique
   displayName String
+  userId User[] @relation(name: "userComments")
 
   content String
   
@@ -60,6 +61,8 @@ model User {
 // switched to many-many relations
   userLiked Comment[] @relation(name: "likes")
   userDisliked Comment[] @relation(name: "dislikes")
+  comments Comment[] @relation(name: "userComments")
+
 
   // ALTERNATIVE
   // userLiked String[]
