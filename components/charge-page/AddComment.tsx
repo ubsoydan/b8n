@@ -29,7 +29,7 @@ export default function AddComment({ charge }: AddCommentProps) {
     async function postComment(event: React.FormEvent) {
         event.preventDefault();
 
-        const res = await fetch("/api/comment", {
+        const res = await fetch("/api/comments", {
             method: "POST",
             headers: {
                 "Content-Type": "application/json",
