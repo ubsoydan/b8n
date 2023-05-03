@@ -3,6 +3,10 @@ import { v4 as uuidv4 } from "uuid";
 export default async function UserLS() {
     const user = localStorage.getItem("user");
 
+    if (user) {
+        return user;
+    }
+
     if (!user) {
         const setNewUser = localStorage.setItem("user", uuidv4());
         const getNewUser = localStorage.getItem("user");
@@ -21,6 +25,4 @@ export default async function UserLS() {
         console.log("NEW USER SAVED INTO DB", user);
         return getNewUser;
     }
-
-    return user;
 }
