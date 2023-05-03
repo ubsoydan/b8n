@@ -1,5 +1,3 @@
-import { ThumbsUp, ThumbsDown } from "lucide-react";
-import { Button } from "components/ui/button";
 import {
     Card,
     CardContent,
@@ -8,6 +6,7 @@ import {
     CardHeader,
     CardTitle,
 } from "components/ui/card";
+import CommentInteraction from "./CommentInteraction";
 
 function formatTimestamp(timestamp: Date, locale: string): string {
     return timestamp.toLocaleDateString(locale, {
@@ -22,6 +21,7 @@ interface CommentCardProps {
     commentor: String | null;
     likeCount: Number | null;
     dislikeCount: Number | null;
+    id: String | null;
 }
 
 export default function CommentCard({
@@ -30,11 +30,13 @@ export default function CommentCard({
     commentor,
     likeCount,
     dislikeCount,
+    id,
 }: CommentCardProps) {
     // formats date object to string for readibility
     const formattedDate: string | null = date
         ? formatTimestamp(date, "tr-TR")
         : null;
+
     return (
         <div className="max-w-xl mx-auto">
             <Card>
@@ -50,23 +52,11 @@ export default function CommentCard({
                 >
                     <p>{`${commentor} - ${formattedDate}`}</p>
                 </div>
-                <div
-                    id="is-comment-helpful"
-                    aria-label="Yorum yardımcı oldu mu?"
-                    className="flex items-center"
-                >
-                    <p>{`(${likeCount})`}</p>
-                    <Button variant="ghost">
-                        <ThumbsUp className="mr-2 h-4 w-4" />
-                        Faydalı
-                    </Button>
-
-                    <Button variant="ghost">
-                        <ThumbsDown className="mr-2 h-4 w-4" />
-                        Faydalı Değil
-                    </Button>
-                    <p>{`(${dislikeCount})`}</p>
-                </div>
+                <CommentInteraction
+                    commentId={id}
+                    likeCount={likeCount}
+                    dislikeCount={dislikeCount}
+                />
             </div>
         </div>
     );
