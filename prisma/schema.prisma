@@ -13,7 +13,7 @@ datasource db {
 model Charge {
   name         String  @unique @id
   id Int @default(autoincrement())
-  viewsCount Int @default(0)
+  viewsCount Int @default(1)
   
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
@@ -37,7 +37,12 @@ model Comment {
   content String
   
   likeCounter Int @default(0)
+  likedBy User[] @relation(name: "likes")
+  // ALTERNATIVE likes User[] @relation("likes")
+
   dislikeCounter Int @default(0)
+  dislikedBy User[] @relation(name: "dislikes")
+  // ALTERNATIVE dislikes User[] @relation("dislikes")
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
@@ -47,4 +52,19 @@ model Comment {
 
   chargeName String
   charge   Charge @relation(fields: [chargeName], references: [name])
+}
+
+model User {
+  id String @id
+
+// switched to many-many relations
+  userLiked Comment[] @relation(name: "likes")
+  userDisliked Comment[] @relation(name: "dislikes")
+
+  // ALTERNATIVE
+  // userLiked String[]
+  // likes Comment @relation("likes", fields: [userLiked], references: [id])
+
+  // userDisliked String[]
+  // dislikes Comment @relation("dislikes", fields: [userDisliked], references: [id])
 }
