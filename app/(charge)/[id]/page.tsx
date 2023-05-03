@@ -9,7 +9,7 @@ import HorizontalBanner from "components/HorizontalBanner";
 import VerticalBanner from "components/VerticalBanner";
 
 async function getCharge(chargeName: Charge["name"]) {
-    return await db.charge.findUnique({
+    const result = await db.charge.findUnique({
         where: {
             name: chargeName,
         },
@@ -17,6 +17,20 @@ async function getCharge(chargeName: Charge["name"]) {
             comments: true,
         },
     });
+
+    // Increase view count +1 in database
+    await db.charge.update({
+        where: {
+            name: chargeName,
+        },
+        data: {
+            viewsCount: {
+                increment: 1,
+            },
+        },
+    });
+
+    return result;
 }
 
 interface ChargePageProps {
@@ -46,6 +60,7 @@ export default async function ChargePage({ params }: ChargePageProps) {
                         return (
                             <CommentCard
                                 key={comment.id}
+                                id={comment.id}
                                 content={comment.content}
                                 commentor={comment.displayName}
                                 likeCount={comment.likeCounter}
