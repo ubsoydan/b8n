@@ -8,18 +8,50 @@ export default function SearchForm() {
     const [chargeData, setChargeData] = useState("");
     const router = useRouter();
 
-    function onSearch(event: React.FormEvent) {
+    async function inquireCharge(event: React.FormEvent) {
         event.preventDefault();
 
-        const encodedSearchQuery = encodeURI(chargeData).replace(/%20/g, "-");
-        router.push(`/search?q=${encodedSearchQuery}`);
+        try {
+            // Format user input to be used as query param
+            const id = encodeURI(chargeData);
+            // Inquiry
+            const res = await fetch(`/api/charges/${id}`, {
+                method: "GET",
+                headers: {
+                    "Content-Type": "application/json",
+                },
+            });
 
-        console.log("search input detected", encodedSearchQuery);
+            const existingCharge = await res.json();
+            if (existingCharge) {
+                console.log("BOYLE BIR KAYIT VAR", existingCharge);
+
+                // Formats url for readibility, swaps %20s with dashes
+                const redirectTo = id.replace(/%20/g, "-");
+                router.replace(`/${redirectTo}`);
+            }
+
+            if (!existingCharge) {
+                console.log("BULUNMADIADMDSAN");
+                const res = await fetch(`/api/charges/${id}`, {
+                    method: "POST",
+                    headers: {
+                        "Content-Type": "application/json",
+                    },
+                    body: JSON.stringify({
+                        charge: chargeData,
+                    }),
+                });
+
+                const newCharge = await res.json();
+                console.log("new charge created", newCharge);
+                router.replace(`/${newCharge.name}`);
+            }
+        } catch (err) {}
     }
-
     return (
         <div className="flex">
-            <form onSubmit={onSearch}>
+            <form onSubmit={inquireCharge}>
                 <Input
                     type="text"
                     placeholder="Bilinmeyen harcamanizi girin..."
