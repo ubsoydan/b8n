@@ -66,6 +66,7 @@ export default async function ChargePage({ params }: ChargePageProps) {
                                 likeCount={comment.likeCounter}
                                 dislikeCount={comment.dislikeCounter}
                                 date={comment.createdAt}
+                                commentType={comment.commentType}
                             />
                         );
                     })}

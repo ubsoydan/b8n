@@ -13,7 +13,7 @@ import { Button } from "components/ui/button";
 import { Textarea } from "components/ui/textarea";
 import { useState } from "react";
 import { useRouter } from "next/navigation";
-
+import UserLS from "@/lib/user";
 interface AddCommentProps {
     charge: string;
 }
@@ -22,12 +22,14 @@ export default function AddComment({ charge }: AddCommentProps) {
     const [name, setName] = useState("");
     const [email, setEmail] = useState("");
     const [content, setContent] = useState("");
+    const [commentType, setCommentType] = useState("info");
     const chargeName = charge;
 
     const router = useRouter();
 
     async function postComment(event: React.FormEvent) {
         event.preventDefault();
+        const user = await UserLS();
 
         const res = await fetch("/api/comments", {
             method: "POST",
@@ -39,6 +41,8 @@ export default function AddComment({ charge }: AddCommentProps) {
                 email: email,
                 content: content,
                 chargeName: chargeName,
+                user: user,
+                commentType: commentType,
             }),
         });
 
@@ -55,39 +59,19 @@ export default function AddComment({ charge }: AddCommentProps) {
     return (
         <form onSubmit={postComment} className="flex">
             <div className="flex flex-col">
-                <div id="comment-type">
-                    <Select>
-                        <SelectTrigger className="w-[180px]">
-                            <SelectValue placeholder="Lutfen seciniz" />
-                        </SelectTrigger>
-                        <SelectContent>
-                            <SelectGroup>
-                                <SelectItem value="providing-info">
-                                    Bilgi/Tavsiye vermek istiyorum
-                                </SelectItem>
-                                <SelectItem value="requesting-info">
-                                    Bilgi/Tavsiye almak istiyorum
-                                </SelectItem>
-                                <SelectItem value="reporting-possible-fraud">
-                                    Dolandiricilik olabilecegini dusunuyorum
-                                </SelectItem>
-                            </SelectGroup>
-                        </SelectContent>
-                    </Select>
-                </div>
-                <div className="grid w-full max-w-xs items-center gap-1.5">
-                    <Label htmlFor="commentorName">Isminiz</Label>
+                <div className="grid w-full max-w-xs items-center gap-1.5 my-2">
+                    <Label htmlFor="commentorName">İsminiz</Label>
                     <Input
                         type="text"
                         id="commentorName"
-                        aria-placeholder="Isminizi giriniz..."
+                        aria-placeholder="İsminizi giriniz..."
                         value={name}
                         onChange={(e) => setName(e.target.value)}
                         required
                     />
                 </div>
-                <div className="grid w-full max-w-xs items-center gap-1.5">
-                    <Label htmlFor="commentorEmail">E-posta</Label>
+                <div className="grid w-full max-w-xs items-center gap-1.5 my-2">
+                    <Label htmlFor="commentorEmail">E-posta adresiniz</Label>
                     <Input
                         type="text"
                         id="commentorEmail"
@@ -97,15 +81,38 @@ export default function AddComment({ charge }: AddCommentProps) {
                         required
                     />
                 </div>
-                <div aria-label="Yorumu gonder">
-                    <Button type="submit">Yorumu gonder</Button>
+                <div id="comment-type" className="my-2">
+                    <Label>Yorumunuzun türü</Label>
+
+                    <Select
+                        onValueChange={(value) => setCommentType(value)}
+                        value={commentType}
+                        required
+                    >
+                        <SelectTrigger className="w-[180px]">
+                            <SelectValue />
+                        </SelectTrigger>
+                        <SelectContent>
+                            <SelectGroup>
+                                <SelectItem value="info">
+                                    Bilgi / Tavsiye
+                                </SelectItem>
+                                <SelectItem value="fraud">
+                                    Şüpheli Harcama
+                                </SelectItem>
+                            </SelectGroup>
+                        </SelectContent>
+                    </Select>
+                </div>
+                <div aria-label="Yorumu gönder" className="my-4">
+                    <Button type="submit">YORUMU GÖNDER</Button>
                 </div>
             </div>
             <div className="flex flex-col">
-                <div className="grid w-full gap-1.5">
-                    <Label htmlFor="content">Yorumunuzu yaziniz...</Label>
+                <div className="grid w-[32rem] gap-1.5 m-2">
+                    <Label htmlFor="content">Yorum</Label>
                     <Textarea
-                        placeholder="Type your message here."
+                        placeholder="Yorumunuzu yazınız..."
                         id="content"
                         name="content"
                         value={content}
@@ -113,8 +120,8 @@ export default function AddComment({ charge }: AddCommentProps) {
                         required
                     />
                     <p className="text-sm text-muted-foreground">
-                        Yorumunuzu aciklayici bir sekilde yaziniz. Varsa link
-                        veya kaynaklari eklemeyi unutmayiniz.
+                        Yorumunuzu açıklayıcı bir şekilde yazınız. Varsa link
+                        eklemeyi unutmayınız.
                     </p>
                 </div>
             </div>

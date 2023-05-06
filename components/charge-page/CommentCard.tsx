@@ -1,3 +1,4 @@
+import { Info, AlertTriangle } from "lucide-react";
 import {
     Card,
     CardContent,
@@ -22,6 +23,7 @@ interface CommentCardProps {
     likeCount: Number | null;
     dislikeCount: Number | null;
     id: String | null;
+    commentType: String | null;
 }
 
 export default function CommentCard({
@@ -31,6 +33,7 @@ export default function CommentCard({
     likeCount,
     dislikeCount,
     id,
+    commentType,
 }: CommentCardProps) {
     // formats date object to string for readibility
     const formattedDate: string | null = date
@@ -45,12 +48,21 @@ export default function CommentCard({
                 </CardContent>
             </Card>
             <div className="flex justify-between">
-                <div
-                    id="comment-date-and-user"
-                    aria-label="Yorum tarihi ve yapan"
-                    className="mt-1 ml-2"
-                >
-                    <p>{`${commentor} - ${formattedDate}`}</p>
+                <div className="flex justify-start">
+                    <div>
+                        {commentType === "info" ? (
+                            <Info color="blue" size="20" />
+                        ) : (
+                            <AlertTriangle color="red" size="20" />
+                        )}
+                    </div>
+                    <div
+                        id="comment-date-and-user"
+                        aria-label="Yorum tarihi ve yapan"
+                        className="mt-1 ml-2"
+                    >
+                        <p>{`${commentor} - ${formattedDate}`}</p>
+                    </div>
                 </div>
                 <CommentInteraction
                     commentId={id}

@@ -36,6 +36,7 @@ model Comment {
   userId User[] @relation(name: "userComments")
 
   content String
+  commentType String
   
   likeCounter Int @default(0)
   likedBy User[] @relation(name: "likes")
