@@ -7,7 +7,7 @@ const commentCreateSchema = z.object({
     content: z.string(),
     chargeName: z.string(),
     commentType: z.string(),
-    // user: z.string(),
+    user: z.string(),
 });
 
 export async function POST(req: Request) {
@@ -22,6 +22,11 @@ export async function POST(req: Request) {
                 content: body.content,
                 chargeName: body.chargeName,
                 commentType: body.commentType,
+                userId: {
+                    connect: {
+                        id: body.user,
+                    },
+                },
             },
         });
 
