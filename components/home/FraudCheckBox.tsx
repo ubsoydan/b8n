@@ -5,10 +5,9 @@ import {
     CardHeader,
     CardDescription,
 } from "components/ui/card";
-import SearchForm from "./SearchForm";
-SearchForm;
+import Link from "next/link";
 
-export default function SearchBox() {
+export default function FraudCheckBox() {
     return (
         <Card className="w-[48rem]">
             <CardHeader>
@@ -20,7 +19,7 @@ export default function SearchBox() {
                 </CardDescription>
             </CardHeader>
             <CardContent>
-                <SearchForm />
+                <Link href="/check">CHECK FRAUD</Link>
             </CardContent>
         </Card>
     );

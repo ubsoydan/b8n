@@ -1,7 +1,7 @@
 import Image from "next/image";
 import { Inter } from "next/font/google";
 
-import SearchBox from "components/home/SearchBox";
+import FraudCheckBox from "components/home/FraudCheckBox";
 import VerticalBanner from "components/VerticalBanner";
 import MostPopularCharges from "components/home/MostPopularCharges";
 import MostRecentCharges from "components/home/MostRecentCharges";
@@ -13,7 +13,7 @@ export default function Home() {
         <div className="flex">
             <div className="flex-col px-10">
                 <div>
-                    <SearchBox />
+                    <FraudCheckBox />
                 </div>
                 <div className="flex py-10">
                     <MostPopularCharges />
