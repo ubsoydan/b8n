@@ -7,11 +7,21 @@ export async function GET(
     { params }: { params: { id: string } }
 ) {
     const id = decodeURI(params.id);
-    const charge = await db.charge.findUnique({
+    // const charge = await db.charge.findUnique({
+    //     where: {
+    //         name: id,
+    //     },
+    // });
+
+    const charge = await db.charge.findFirst({
         where: {
-            name: id,
+            name: {
+                equals: id,
+                mode: "insensitive",
+            },
         },
     });
+
     return NextResponse.json(charge);
 }
 
