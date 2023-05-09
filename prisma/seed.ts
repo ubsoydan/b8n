@@ -48,6 +48,7 @@ async function main() {
                 likeCounter: 238,
                 dislikeCounter: 14,
                 chargeName: "Koton",
+                commentType: "info",
             },
             {
                 email: "jane_doe@example.com",
@@ -57,6 +58,7 @@ async function main() {
                 likeCounter: 142,
                 dislikeCounter: 37,
                 chargeName: "Koton",
+                commentType: "info",
             },
             {
                 email: "sam_smith@example.com",
@@ -66,6 +68,7 @@ async function main() {
                 likeCounter: 433,
                 dislikeCounter: 93,
                 chargeName: "Koton",
+                commentType: "fraud",
             },
             {
                 email: "emma_watson@example.com",
@@ -75,6 +78,7 @@ async function main() {
                 likeCounter: 856,
                 dislikeCounter: 27,
                 chargeName: "Koton",
+                commentType: "fraud",
             },
             {
                 email: "david_beckham@example.com",
@@ -84,6 +88,7 @@ async function main() {
                 likeCounter: 601,
                 dislikeCounter: 53,
                 chargeName: "Koton",
+                commentType: "info",
             },
             {
                 email: "jennifer_aniston@example.com",
@@ -93,6 +98,7 @@ async function main() {
                 likeCounter: 435,
                 dislikeCounter: 19,
                 chargeName: "Starbucks",
+                commentType: "info",
             },
             {
                 email: "leonardo_dicaprio@example.com",
@@ -102,6 +108,7 @@ async function main() {
                 likeCounter: 621,
                 dislikeCounter: 56,
                 chargeName: "Starbucks",
+                commentType: "info",
             },
             {
                 email: "angelina_jolie@example.com",
@@ -111,6 +118,7 @@ async function main() {
                 likeCounter: 125,
                 dislikeCounter: 67,
                 chargeName: "Starbucks",
+                commentType: "fraud",
             },
             {
                 email: "brad_pitt@example.com",
@@ -120,6 +128,7 @@ async function main() {
                 likeCounter: 391,
                 dislikeCounter: 14,
                 chargeName: "A101",
+                commentType: "fraud",
             },
             {
                 email: "scarlett_johansson@example.com",
@@ -129,6 +138,7 @@ async function main() {
                 likeCounter: 267,
                 dislikeCounter: 46,
                 chargeName: "A101",
+                commentType: "info",
             },
         ],
     });

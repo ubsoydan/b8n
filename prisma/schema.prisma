@@ -31,11 +31,12 @@ model Charge {
 
 model Comment {
   id        String   @id @default(uuid())
-  email String @unique
+  email String
   displayName String
   userId User[] @relation(name: "userComments")
 
   content String
+  commentType String
   
   likeCounter Int @default(0)
   likedBy User[] @relation(name: "likes")
@@ -56,7 +57,7 @@ model Comment {
 }
 
 model User {
-  id String @id
+  id String @id @default("anon")
 
 // switched to many-many relations
   userLiked Comment[] @relation(name: "likes")

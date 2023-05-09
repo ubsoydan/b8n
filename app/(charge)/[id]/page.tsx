@@ -9,19 +9,25 @@ import HorizontalBanner from "components/HorizontalBanner";
 import VerticalBanner from "components/VerticalBanner";
 
 async function getCharge(chargeName: Charge["name"]) {
-    const result = await db.charge.findUnique({
+    const result = await db.charge.findFirst({
         where: {
-            name: chargeName,
+            name: {
+                equals: chargeName,
+                mode: "insensitive",
+            },
         },
         include: {
             comments: true,
         },
     });
 
+    if (!result) {
+        console.log("getcharge on charge page is causing problems");
+    }
     // Increase view count +1 in database
     await db.charge.update({
         where: {
-            name: chargeName,
+            name: result?.name,
         },
         data: {
             viewsCount: {
@@ -66,6 +72,7 @@ export default async function ChargePage({ params }: ChargePageProps) {
                                 likeCount={comment.likeCounter}
                                 dislikeCount={comment.dislikeCounter}
                                 date={comment.createdAt}
+                                commentType={comment.commentType}
                             />
                         );
                     })}
