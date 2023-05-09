@@ -1,19 +1,21 @@
-import { z } from "zod";
+// import { z } from "zod";
 import { db } from "@/lib/db";
+import { NextResponse } from "next/server";
 
-const commentCreateSchema = z.object({
-    displayName: z.string(),
-    email: z.string(),
-    content: z.string(),
-    chargeName: z.string(),
-    commentType: z.string(),
-    user: z.string(),
-});
+// const commentCreateSchema = z.object({
+//     displayName: z.string(),
+//     email: z.string(),
+//     content: z.string(),
+//     chargeName: z.string(),
+//     commentType: z.string(),
+//     user: z.string(),
+// });
 
 export async function POST(req: Request) {
     try {
-        const json = await req.json();
-        const body = commentCreateSchema.parse(json);
+        // const json = await req.json();
+        // const body = commentCreateSchema.parse(json);
+        const body = await req.json();
 
         const comment = await db.comment.create({
             data: {
@@ -22,11 +24,11 @@ export async function POST(req: Request) {
                 content: body.content,
                 chargeName: body.chargeName,
                 commentType: body.commentType,
-                userId: {
-                    connect: {
-                        id: body.user,
-                    },
-                },
+                // userId: {
+                //     connect: {
+                //         id: body.user,
+                //     },
+                // },
             },
         });
 
@@ -39,12 +41,12 @@ export async function POST(req: Request) {
         //     },
         // });
 
-        return new Response(JSON.stringify(comment));
+        return NextResponse.json({ body });
     } catch (err) {
-        if (err instanceof z.ZodError) {
-            return new Response(JSON.stringify(err.issues), { status: 422 });
-        }
-
+        // if (err instanceof z.ZodError) {
+        //     return new Response(JSON.stringify(err.issues), { status: 422 });
+        // }
+        console.log(err);
         return new Response(null, { status: 500 });
     }
 

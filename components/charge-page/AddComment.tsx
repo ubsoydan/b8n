@@ -13,7 +13,7 @@ import { Button } from "components/ui/button";
 import { Textarea } from "components/ui/textarea";
 import { useState } from "react";
 import { useRouter } from "next/navigation";
-import UserLS from "@/lib/user";
+// import UserLS from "@/lib/user";
 interface AddCommentProps {
     charge: string;
 }
@@ -29,7 +29,7 @@ export default function AddComment({ charge }: AddCommentProps) {
 
     async function postComment(event: React.FormEvent) {
         event.preventDefault();
-        const user = await UserLS();
+        // const user = await UserLS();
 
         const res = await fetch("/api/comments", {
             method: "POST",
@@ -41,7 +41,7 @@ export default function AddComment({ charge }: AddCommentProps) {
                 email: email,
                 content: content,
                 chargeName: chargeName,
-                user: user,
+                // user: user,
                 commentType: commentType,
             }),
         });
