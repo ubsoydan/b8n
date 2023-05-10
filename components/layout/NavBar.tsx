@@ -1,14 +1,11 @@
 "use client";
 
-import Image from "next/image";
 import Link from "next/link";
 import useScroll from "@/lib/hooks/useScroll";
-
-import { Button } from "components/ui/button";
-
+import SearchBox from "./SearchBox";
+import Image from "next/image";
 export default function NavBar() {
     const isScrolled = useScroll(50);
-
     return (
         <>
             <div
@@ -18,17 +15,26 @@ export default function NavBar() {
                         : "bg-white/0"
                 }`}
             >
-                <div className="mx-5 flex h-16 max-w-screen-xl items-center justify-between xl:mx-auto">
-                    <Link
-                        href="/"
-                        className="flex items-center font-display text-2xl"
-                    >
-                        {/* imagehere */}
-                        <p>Bilinmeyen Harcama</p>
-                    </Link>
-                    {/* <div>
-                        <Button size="sm">Giris Yap</Button>
-                    </div> */}
+                <div className="flex items-center justify-around">
+                    <div className="flex h-16 max-w-screen-lg">
+                        <Image
+                            src="/logo.png"
+                            alt="Bilinmeyen Harcama Logo"
+                            width={64}
+                            height={64}
+                        />
+                        <Link
+                            href="/"
+                            className="flex items-center font-display text-2xl ml-4"
+                        >
+                            <p>Bilinmeyen Harcama</p>
+                        </Link>
+                    </div>
+                    <div className="flex items-center">
+                        {/* <SearchBox /> */}
+                        <p>Ara: </p>
+                        <div className="gcse-searchbox-only"></div>
+                    </div>
                 </div>
             </div>
         </>
