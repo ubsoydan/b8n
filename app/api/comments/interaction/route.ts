@@ -4,7 +4,7 @@ import * as z from "zod";
 const updateCommentInteraction = z.object({
     id: z.string(),
     interaction: z.string(),
-    userId: z.string(),
+    // userId: z.string().optional(),
 });
 
 export async function PATCH(req: Request) {
@@ -12,7 +12,7 @@ export async function PATCH(req: Request) {
         const json = await req.json();
         const body = updateCommentInteraction.parse(json);
 
-        const user = await db.user.findUnique({ where: { id: body.userId } });
+        // const user = await db.user.findUnique({ where: { id: body.userId } });
 
         switch (body.interaction) {
             case "like":
@@ -21,11 +21,11 @@ export async function PATCH(req: Request) {
                         id: body.id,
                     },
                     data: {
-                        likedBy: {
-                            connect: {
-                                id: user?.id,
-                            },
-                        },
+                        // likedBy: {
+                        //     connect: {
+                        //         id: user?.id,
+                        //     },
+                        // },
                         likeCounter: {
                             increment: 1,
                         },
@@ -39,11 +39,11 @@ export async function PATCH(req: Request) {
                         id: body.id,
                     },
                     data: {
-                        dislikedBy: {
-                            connect: {
-                                id: user?.id,
-                            },
-                        },
+                        // dislikedBy: {
+                        //     connect: {
+                        //         id: user?.id,
+                        //     },
+                        // },
                         dislikeCounter: {
                             increment: 1,
                         },

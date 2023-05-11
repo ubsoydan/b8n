@@ -24,14 +24,14 @@ export default function CommentInteraction({
     useEffect(() => {
         async function handleLikeOrDislike() {
             if (likeOrDislike !== "" && !isVoted) {
-                const userId = await UserLS();
+                // const userId = await UserLS();
 
                 const res = await fetch("/api/comments/interaction", {
                     method: "PATCH",
                     body: JSON.stringify({
                         id: commentId,
                         interaction: likeOrDislike,
-                        userId: userId,
+                        // userId: userId,
                     }),
                 });
 

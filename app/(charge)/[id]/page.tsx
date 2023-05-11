@@ -79,12 +79,14 @@ export default async function ChargePage({ params }: ChargePageProps) {
                     <AddComment charge={decodedChargeName} />
                 </div>
                 <div>
-                    <ChargeCompanyInfo
-                        companyname={charge.companyName}
-                        website={charge.website}
-                        contactweb={charge.contactWeb}
-                        contactphone={charge.contactPhone}
-                    />
+                    {charge.companyName ? (
+                        <ChargeCompanyInfo
+                            companyname={charge.companyName}
+                            website={charge.website}
+                            contactweb={charge.contactWeb}
+                            contactphone={charge.contactPhone}
+                        />
+                    ) : null}
                     <VerticalBanner />
                 </div>
             </div>
