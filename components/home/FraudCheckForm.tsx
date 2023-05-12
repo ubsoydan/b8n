@@ -26,8 +26,6 @@ export default function FraudCheckForm() {
 
             const existingCharge = await res.json();
             if (existingCharge) {
-                console.log("BOYLE BIR KAYIT VAR", existingCharge);
-
                 // Formats url for readibility, swaps %20s with dashes
                 // const redirectTo = id.replace(/%20/g, "-");
                 router.push(`/check?q=${queryParam}`);
@@ -57,15 +55,21 @@ export default function FraudCheckForm() {
     }
 
     return (
-        <div className="flex flex-col items-center">
-            <form onSubmit={inquireCharge} className="w-full">
+        <div className="">
+            <form
+                onSubmit={inquireCharge}
+                className="flex flex-col items-center content-center w-full"
+            >
                 <Input
                     type="text"
-                    placeholder="Bilinmeyen harcamanizi girin..."
+                    placeholder="Bilinmeyen harcamanızı girin..."
                     onChange={(e) => setChargeToCheck(e.target.value)}
                     value={chargeToCheck}
+                    required
                 />
-                <Button type="submit">Sorgula</Button>
+                <Button className="w-1/2 mt-4" type="submit">
+                    Harcamayı Sorgula
+                </Button>
             </form>
         </div>
     );

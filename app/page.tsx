@@ -15,7 +15,7 @@ export default function Home() {
                 <div>
                     <FraudCheckBox />
                 </div>
-                <div className="flex py-10">
+                <div className="m-auto md:flex py-10">
                     <MostPopularCharges />
                     <MostRecentCharges />
                 </div>

@@ -41,15 +41,15 @@ export default function CommentCard({
         : null;
 
     return (
-        <div className="max-w-xl mx-auto">
+        <div className="max-w-xl my-4 mx-8">
             <Card>
-                <CardContent>
+                <CardContent className="pb-0 py-2 md:py-4">
                     <p className="whitespace-pre-wrap">{content} </p>
                 </CardContent>
             </Card>
             <div className="flex justify-between">
                 <div className="flex justify-start">
-                    <div>
+                    <div className="mt-1 ml-2 md:mt-2">
                         {commentType === "info" ? (
                             <Info color="blue" size="20" />
                         ) : (
@@ -59,7 +59,7 @@ export default function CommentCard({
                     <div
                         id="comment-date-and-user"
                         aria-label="Yorum tarihi ve yapan"
-                        className="mt-1 ml-2"
+                        className="mt-1 ml-2 text-xs text-gray-500 md:text-base"
                     >
                         <p>{`${commentor} - ${formattedDate}`}</p>
                     </div>

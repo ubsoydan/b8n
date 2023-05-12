@@ -1,18 +1,26 @@
 export default function Footer() {
     return (
-        <div className="absolute w-full border-t border-gray-200 bg-white py-5 text-center">
-            <p className="text-gray-500">
-                Bir{" "}
+        <div className="absolute w-full border-t border-gray-200 bg-white py-4 text-center">
+            <div className="flex justify-center">
                 <a
-                    className="font-medium text-gray-800 underline transition-colors"
-                    href="https://github.com/ubsoydan"
-                    target="_blank"
-                    rel="noopener noreferrer"
+                    href="/about"
+                    className="text-sm text-gray-500 mx-4 hover:text-gray-700"
                 >
-                    uberkai
-                </a>{" "}
-                projesidir.
-            </p>
+                    Hakkımızda
+                </a>
+                <a
+                    href="/contact"
+                    className="text-sm text-gray-500 mx-4 hover:text-gray-700"
+                >
+                    İletişim
+                </a>
+                <a
+                    href="/disclaimer"
+                    className="text-sm text-gray-500 mx-4 hover:text-gray-700"
+                >
+                    Gizlilik & Kullanım Sözleşmesi
+                </a>
+            </div>
         </div>
     );
 }

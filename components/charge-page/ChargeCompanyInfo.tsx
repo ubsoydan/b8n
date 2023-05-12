@@ -17,15 +17,21 @@ export default function ChargeCompanyInfo({
     const { companyname, website, contactweb, contactphone } = props;
 
     return (
-        <Card className={cn("w-72", className)} {...props}>
-            <CardContent className={cn("mt-2", className)}>
-                <p className="mt-2 text-md font-md leading-none">Isletme adi</p>
+        <Card className="mx-20 w-2/3 md:w-72 md:mx-0 my-4">
+            <CardContent className="mt-2">
+                <p className="mt-2 text-base leading-none">İşletme adı</p>
 
-                <p className="text-sm text-muted-foreground">{companyname}</p>
-                <p className="mt-2 text-md font-md leading-none">Web Sitesi</p>
-                <p className="text-sm text-muted-foreground">{website}</p>
-                <p className="mt-2 text-md font-md leading-none">Iletisim</p>
-                <p className="text-sm text-muted-foreground">{contactweb}</p>
+                <p className="ml-2 mt-1 text-sm text-muted-foreground">
+                    {companyname}
+                </p>
+                <p className="mt-2 text-base  leading-none">İnternet Sitesi</p>
+                <p className="ml-2 mt-1 text-sm text-muted-foreground">
+                    {website}
+                </p>
+                <p className="mt-2 text-base leading-none">İletişim</p>
+                <p className="ml-2 mt-1 text-sm text-muted-foreground">
+                    {contactweb}
+                </p>
                 <p className="text-sm text-muted-foreground">{contactphone}</p>
             </CardContent>
         </Card>

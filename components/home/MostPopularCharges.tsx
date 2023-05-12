@@ -10,11 +10,11 @@ async function getCharges() {
     return res;
 }
 
-export default async function MostPopularCharges() {
+async function MostPopularCharges() {
     const charges = await getCharges();
 
     return (
-        <Card className="w-1/2 mr-4">
+        <Card className="w-full h-auto lg:w-1/2 mr-4">
             <CardHeader>
                 <CardTitle>En cok arananlar</CardTitle>
             </CardHeader>
@@ -33,3 +33,5 @@ export default async function MostPopularCharges() {
         </Card>
     );
 }
+
+export default MostPopularCharges;

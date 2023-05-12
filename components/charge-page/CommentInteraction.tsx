@@ -26,22 +26,26 @@ export default function CommentInteraction({
             if (likeOrDislike !== "" && !isVoted) {
                 // const userId = await UserLS();
 
-                const res = await fetch("/api/comments/interaction", {
-                    method: "PATCH",
-                    body: JSON.stringify({
-                        id: commentId,
-                        interaction: likeOrDislike,
-                        // userId: userId,
-                    }),
-                });
+                try {
+                    const res = await fetch("/api/comments/interaction", {
+                        method: "PATCH",
+                        body: JSON.stringify({
+                            id: commentId,
+                            interaction: likeOrDislike,
+                            // userId: userId,
+                        }),
+                    });
 
-                const final = await res.json();
-                console.log(
-                    `a new ${likeOrDislike} is added for comment ${commentId}`,
-                    final
-                );
-                setIsVoted(true);
-                router.refresh();
+                    const final = await res.json();
+                    console.log(
+                        `a new ${likeOrDislike} is added for comment ${commentId}`,
+                        final
+                    );
+                    setIsVoted(true);
+                    // router.refresh();
+                } catch (err) {
+                    console.error(err);
+                }
             }
         }
         handleLikeOrDislike();
@@ -64,33 +68,35 @@ export default function CommentInteraction({
             aria-label="Yorum yardımcı oldu mu?"
             className="flex items-center"
         >
-            <p>{`(${likeCount})`}</p>
+            <p className="text-sm">{`(${likeCount})`}</p>
             <Button
                 variant="ghost"
                 value="like"
                 onClick={(e) => handleButtonClick(e)}
+                size="sm"
             >
                 {likeOrDislike === "like" ? (
-                    <ThumbsUp fill="grey" className="mr-2 h-4 w-4" />
+                    <ThumbsUp fill="grey" className="h-4 w-4 md:mr-2" />
                 ) : (
-                    <ThumbsUp className="mr-2 h-4 w-4" />
+                    <ThumbsUp className="h-4 w-4 md:mr-2" />
                 )}
-                Faydalı
+                <span className="hidden md:block">Faydalı</span>
             </Button>
 
             <Button
                 variant="ghost"
                 value="dislike"
                 onClick={(e) => handleButtonClick(e)}
+                size="sm"
             >
                 {likeOrDislike === "dislike" ? (
-                    <ThumbsDown fill="grey" className="mr-2 h-4 w-4" />
+                    <ThumbsDown fill="grey" className="h-4 w-4 md:mr-2" />
                 ) : (
-                    <ThumbsDown className="mr-2 h-4 w-4" />
+                    <ThumbsDown className="h-4 w-4 md:mr-2" />
                 )}
-                Faydalı Değil
+                <span className="hidden md:block">Faydalı Değil</span>
             </Button>
-            <p>{`(${dislikeCount})`}</p>
+            <p className="text-sm">{`(${dislikeCount})`}</p>
         </div>
     );
 }
