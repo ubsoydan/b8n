@@ -16,7 +16,9 @@ export default function Home() {
                     <FraudCheckBox />
                 </div>
                 <div className="m-auto md:flex py-10">
+                    {/* @ts-expect-error Server Component */}
                     <MostPopularCharges />
+                    {/* @ts-expect-error Server Component */}
                     <MostRecentCharges />
                 </div>
             </div>
