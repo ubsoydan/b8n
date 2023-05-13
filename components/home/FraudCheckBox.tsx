@@ -9,7 +9,7 @@ import Link from "next/link";
 
 export default function FraudCheckBox() {
     return (
-        <Card className="w-[48rem]">
+        <Card className="lg:w-[48rem]">
             <CardHeader>
                 <CardTitle>Sorgula</CardTitle>
                 <CardDescription>

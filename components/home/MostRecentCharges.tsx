@@ -21,7 +21,7 @@ async function getCharges() {
 export default async function MostRecentCharges() {
     const charges = await getCharges();
     return (
-        <Card className="w-1/2 mr-4">
+        <Card className="w-full h-auto my-6 md:my-0 lg:w-1/2">
             <CardHeader>
                 <CardTitle>En son arananlar</CardTitle>
             </CardHeader>

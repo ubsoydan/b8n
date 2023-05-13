@@ -105,8 +105,11 @@ export default async function CheckPage({
 
     return (
         <>
-            <h1>CHECK PAGE</h1>
-            <Card className="w-[48rem]">
+            <h3 className="text-2xl mx-4 text-center font-semibold md:text-3xl lg:text-4xl ">
+                DOLANDIRICILIK İHTİMALİNİ ÖĞREN
+            </h3>
+
+            <Card className="mx-4 lg:w-[48rem]">
                 <CardHeader>
                     <CardTitle>Dolandiricilik Ihtimalini Ogren</CardTitle>
                     <CardDescription>
@@ -122,24 +125,36 @@ export default async function CheckPage({
                 </CardContent>
             </Card>
             {checkedCharge ? (
-                <Card className="w-[48rem]">
+                <Card className="mt-6 w-5/6 md:w-[44rem] lg:w-[48rem]">
                     <CardHeader>
-                        <CardTitle>SONUÇLAR</CardTitle>
+                        <CardTitle className=" text-cyan-700">
+                            SONUÇLAR
+                        </CardTitle>
                     </CardHeader>
                     <CardContent>
-                        <div className="flex ">
-                            <div className="flex flex-col">
-                                <h3>Harcama adi</h3>
-                                <Separator />
-                                <Link href={`/${checkedChargeUrl}`}>
+                        <div className="flex">
+                            <div className="flex flex-col justify-start w-1/2">
+                                <h3 className="font-medium text-cyan-700">
+                                    Harcama adi
+                                </h3>
+                                <Separator className="w-5/6" />
+                                <Link
+                                    href={`/${checkedChargeUrl}`}
+                                    className="mt-2 ml-2"
+                                >
                                     {checkedCharge}
                                 </Link>
                             </div>
-                            <div className="flex flex-col ml-10">
-                                <h3>Risk Seviyesi</h3>
-                                <Separator />
+                            <div className="flex flex-col justify-start w-1/2 lg:ml-10">
+                                <h3 className="font-medium text-cyan-700">
+                                    Risk Seviyesi
+                                </h3>
+                                <Separator className="w-5/6" />
 
-                                <Badge variant={showRisk?.color}>
+                                <Badge
+                                    variant={showRisk?.color}
+                                    className="mt-2 ml-2 max-w-fit"
+                                >
                                     {showRisk?.level}
                                 </Badge>
                             </div>
