@@ -1,13 +1,14 @@
 import { db } from "@/lib/db";
 import { Charge } from "@prisma/client";
-import AboutCharge from "components/charge-page/AboutCharge";
-import AddComment from "components/charge-page/AddComment";
-import ChargeCompanyInfo from "components/charge-page/ChargeCompanyInfo";
-import ChargeHeader from "components/charge-page/ChargeHeader";
-import CommentCard from "components/charge-page/CommentCard";
-import HorizontalBanner from "components/HorizontalBanner";
-import VerticalBanner from "components/VerticalBanner";
-import { Separator } from "components/ui/separator";
+import AboutCharge from "@/components/charge-page/AboutCharge";
+import AddComment from "@/components/charge-page/AddComment";
+import ChargeCompanyInfo from "@/components/charge-page/ChargeCompanyInfo";
+import ChargeHeader from "@/components/charge-page/ChargeHeader";
+import CommentCard from "@/components/charge-page/CommentCard";
+import HorizontalBanner from "@/components/HorizontalBanner";
+import VerticalBanner from "@/components/VerticalBanner";
+import { Separator } from "@/components/ui/separator";
+import { getCurrentUser } from "@/lib/session";
 
 async function getCharge(chargeName: Charge["name"]) {
     const result = await db.charge.findFirst({
@@ -45,6 +46,8 @@ interface ChargePageProps {
 }
 
 export default async function ChargePage({ params }: ChargePageProps) {
+    const user = await getCurrentUser();
+
     const decodedChargeName = decodeURI(params.id.replace(/-/g, " "));
 
     const charge = await getCharge(decodedChargeName);
@@ -86,8 +89,8 @@ export default async function ChargePage({ params }: ChargePageProps) {
                                 id={comment.id}
                                 content={comment.content}
                                 commentor={comment.displayName}
-                                likeCount={comment.likeCounter}
-                                dislikeCount={comment.dislikeCounter}
+                                // likeCount={comment.likeCounter}
+                                // dislikeCount={comment.dislikeCounter}
                                 date={comment.createdAt}
                                 commentType={comment.commentType}
                             />
@@ -95,7 +98,8 @@ export default async function ChargePage({ params }: ChargePageProps) {
                     })}
                     <Separator className="my-2 md:my-4 w-3/4" />
 
-                    <AddComment charge={decodedChargeName} />
+                    {/* @ts-expect-error Server Component */}
+                    <AddComment charge={decodedChargeName} user={user} />
                 </div>
                 <div className="hidden md:block">
                     {charge.companyName ? (

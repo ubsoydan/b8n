@@ -6,7 +6,7 @@ import {
     CardFooter,
     CardHeader,
     CardTitle,
-} from "components/ui/card";
+} from "@/components/ui/card";
 import CommentInteraction from "./CommentInteraction";
 
 function formatTimestamp(timestamp: Date, locale: string): string {
@@ -17,21 +17,21 @@ function formatTimestamp(timestamp: Date, locale: string): string {
     });
 }
 interface CommentCardProps {
-    content: String | null;
+    content: string | null;
     date: Date | null;
-    commentor: String | null;
-    likeCount: Number | null;
-    dislikeCount: Number | null;
-    id: String | null;
-    commentType: String | null;
+    commentor: string | null;
+    // likeCount: number | null;
+    // dislikeCount: number | null;
+    id: string | null;
+    commentType: string | null;
 }
 
 export default function CommentCard({
     content,
     date,
     commentor,
-    likeCount,
-    dislikeCount,
+    // likeCount,
+    // dislikeCount,
     id,
     commentType,
 }: CommentCardProps) {

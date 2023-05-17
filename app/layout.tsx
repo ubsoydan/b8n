@@ -1,5 +1,5 @@
-import NavBar from "components/layout/NavBar";
-import Footer from "components/layout/Footer";
+import Nav from "@/components/layout/Nav";
+import Footer from "@/components/layout/Footer";
 import "./globals.css";
 import Script from "next/script";
 
@@ -24,7 +24,8 @@ export default function RootLayout({
         <html lang="tr">
             <body>
                 <div className="h-full w-full bg-gradient-to-br from-indigo-100 via-white to-cyan-200">
-                    <NavBar />
+                    {/* @ts-expect-error Server Component */}
+                    <Nav />
                     <main className="flex min-h-screen w-full flex-col items-center justify-center py-32">
                         {children}
                     </main>

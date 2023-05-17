@@ -19,12 +19,14 @@ export async function POST(req: Request) {
 
         const comment = await db.comment.create({
             data: {
-                displayName: body.displayName,
-                email: body.email,
+                // displayName: body.displayName,
+                // email: body.email,
                 content: body.content,
                 chargeName: body.chargeName,
                 commentType: body.commentType,
-                // userId: {
+                displayName: body.userName,
+                userEmail: body.userEmail,
+                // userId: {s
                 //     connect: {
                 //         id: body.user,
                 //     },
