@@ -16,17 +16,15 @@ import { useRouter } from "next/navigation";
 // import UserLS from "@/lib/user";
 interface AddCommentProps {
     charge: string;
-    user: object;
+    // user: object;
 }
 
-export default function AddComment({ charge, user }: AddCommentProps) {
-    // const [name, setName] = useState("");
-    // const [email, setEmail] = useState("");
+export default function AddComment({ charge }: AddCommentProps) {
+    const [name, setName] = useState("");
+    const [email, setEmail] = useState("");
     const [content, setContent] = useState("");
     const [commentType, setCommentType] = useState("info");
     const chargeName = charge;
-    const userEmail = user?.email;
-    const userName = user?.name;
 
     const router = useRouter();
 
@@ -34,33 +32,28 @@ export default function AddComment({ charge, user }: AddCommentProps) {
         event.preventDefault();
         // const user = await UserLS();
 
-        if (user) {
-            const res = await fetch("/api/comments", {
-                method: "POST",
-                headers: {
-                    "Content-Type": "application/json",
-                },
-                body: JSON.stringify({
-                    // displayName: name,
-                    // email: email,
-                    content: content,
-                    chargeName: chargeName,
-                    userEmail: userEmail,
-                    displayName: userName,
-                    // user: user,
-                    commentType: commentType,
-                }),
-            });
+        const res = await fetch("/api/comments", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify({
+                content: content,
+                chargeName: chargeName,
+                email: email,
+                displayName: name,
+                commentType: commentType,
+            }),
+        });
 
-            const comment = await res.json();
-            console.log("this is the post req from addcomment", comment);
+        const comment = await res.json();
+        console.log("this is the post req from addcomment", comment);
 
-            // setName("");
-            // setEmail("");
-            setContent("");
-            // Refresh to see new comment
-            router.refresh();
-        }
+        setName("");
+        setEmail("");
+        setContent("");
+        // Refresh to see new comment
+        router.refresh();
     }
 
     return (
@@ -70,7 +63,7 @@ export default function AddComment({ charge, user }: AddCommentProps) {
             </h3>
             <form onSubmit={postComment} className="ml-6 md:flex" id="comment">
                 <div className="flex flex-col">
-                    {/* <div className="grid w-full max-w-xs items-center gap-1.5 my-2">
+                    <div className="grid w-full max-w-xs items-center gap-1.5 my-2">
                         <Label htmlFor="commentorName">İsminiz</Label>
                         <Input
                             type="text"
@@ -93,7 +86,7 @@ export default function AddComment({ charge, user }: AddCommentProps) {
                             onChange={(e) => setEmail(e.target.value)}
                             required
                         />
-                    </div> */}
+                    </div>
                     <div id="comment-type" className="my-2">
                         <Label>Yorumunuz ne hakkında?</Label>
 

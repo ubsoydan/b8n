@@ -1,65 +1,79 @@
 "use client";
 import { ThumbsUp, ThumbsDown } from "lucide-react";
-import { Button } from "components/ui/button";
-import { useEffect, useState } from "react";
+import { Button } from "@/components/ui/button";
+import { useState } from "react";
 import { useRouter } from "next/navigation";
-import UserLS from "@/lib/user";
-
+useRouter;
 interface CommentInteractionProps {
-    likeCount: Number | null;
-    dislikeCount: Number | null;
-    commentId: String | null;
+    likes: number;
+    dislikes: number;
+    commentId: string;
 }
 
 export default function CommentInteraction({
-    likeCount,
-    dislikeCount,
+    likes,
+    dislikes,
     commentId,
-}: CommentInteractionProps) {
-    const [likeOrDislike, setLikeOrDislike] = useState("");
-    const [isVoted, setIsVoted] = useState(false);
+}: CommentInteractionProps): JSX.Element {
+    const [isLiked, setIsLiked] = useState<Boolean>(false);
+    const [isDisliked, setIsDisliked] = useState<Boolean>(false);
 
     const router = useRouter();
 
-    useEffect(() => {
-        async function handleLikeOrDislike() {
-            if (likeOrDislike !== "" && !isVoted) {
-                // const userId = await UserLS();
+    async function handleLike() {
+        if (!isLiked && !isDisliked) {
+            try {
+                const req = await fetch(`/api/comments/${commentId}/like`, {
+                    method: "PATCH",
+                    headers: {
+                        "Content-Type": "application/json",
+                    },
+                    body: JSON.stringify({
+                        commentId: commentId,
+                    }),
+                });
+                // const final = await req.json();
 
-                try {
-                    const res = await fetch("/api/comments/interaction", {
-                        method: "PATCH",
-                        body: JSON.stringify({
-                            id: commentId,
-                            interaction: likeOrDislike,
-                            // userId: userId,
-                        }),
-                    });
+                setIsLiked(true);
+                console.log("req calisti");
+                router.refresh();
 
-                    const final = await res.json();
-                    console.log(
-                        `a new ${likeOrDislike} is added for comment ${commentId}`,
-                        final
-                    );
-                    setIsVoted(true);
-                    // router.refresh();
-                } catch (err) {
-                    console.error(err);
-                }
+                return new Response("okeyto", { status: 200 });
+            } catch (err) {
+                return new Response(
+                    "Error at handleLike function inside CommentInteraction",
+                    { status: 400 }
+                );
             }
         }
-        handleLikeOrDislike();
-    }, [likeOrDislike, isVoted, commentId, router]);
+    }
 
-    function handleButtonClick(event: React.MouseEvent<HTMLButtonElement>) {
-        const target = event.target as HTMLButtonElement;
-        const interaction = target.value;
+    async function handleDislike() {
+        if (!isLiked && !isDisliked) {
+            try {
+                const req = await fetch(`/api/comments/${commentId}/dislike`, {
+                    method: "PATCH",
+                    headers: {
+                        "Content-Type": "application/json",
+                    },
+                    body: JSON.stringify({
+                        commentId: commentId,
+                    }),
+                });
+                // const final = await req.json();
 
-        if (isVoted) {
-            return alert("zaten yapmisin bisiler");
+                setIsDisliked(true);
+                console.log("req calisti");
+                router.refresh();
+
+                return new Response("okeyto", { status: 200 });
+            } catch (err) {
+                return new Response(
+                    "Error at handleDislike function inside CommentInteraction",
+                    { status: 400 }
+                );
+            }
         }
-
-        setLikeOrDislike(interaction);
     }
 
     return (
@@ -68,14 +82,14 @@ export default function CommentInteraction({
             aria-label="Yorum yardımcı oldu mu?"
             className="flex items-center"
         >
-            <p className="text-sm">{`(${likeCount})`}</p>
+            <p className="text-sm">{`(${likes})`}</p>
             <Button
                 variant="ghost"
                 value="like"
-                onClick={(e) => handleButtonClick(e)}
+                onClick={() => handleLike()}
                 size="sm"
             >
-                {likeOrDislike === "like" ? (
+                {isLiked ? (
                     <ThumbsUp fill="grey" className="h-4 w-4 md:mr-2" />
                 ) : (
                     <ThumbsUp className="h-4 w-4 md:mr-2" />
@@ -86,17 +100,17 @@ export default function CommentInteraction({
             <Button
                 variant="ghost"
                 value="dislike"
-                onClick={(e) => handleButtonClick(e)}
+                onClick={() => handleDislike()}
                 size="sm"
             >
-                {likeOrDislike === "dislike" ? (
+                {isDisliked ? (
                     <ThumbsDown fill="grey" className="h-4 w-4 md:mr-2" />
                 ) : (
                     <ThumbsDown className="h-4 w-4 md:mr-2" />
                 )}
                 <span className="hidden md:block">Faydalı Değil</span>
             </Button>
-            <p className="text-sm">{`(${dislikeCount})`}</p>
+            <p className="text-sm">{`(${dislikes})`}</p>
         </div>
     );
 }

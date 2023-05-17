@@ -7,33 +7,33 @@ const prisma = new PrismaClient();
 async function main() {
     const charge = await prisma.charge.createMany({
         data: [
-            { name: "Arçelik", viewsCount: 14 },
-            { name: "Burger King", viewsCount: 39 },
+            { name: "Arçelik", views: 14 },
+            { name: "Burger King", views: 39 },
             {
                 name: "Starbucks",
-                viewsCount: 125,
+                views: 125,
                 description:
                     "Global coffeehouse chain known for its premium coffee, signature drinks, and cozy ambiance.",
             },
             {
                 name: "Defacto",
-                viewsCount: 4,
+                views: 4,
                 description:
                     "Turkish fashion brand offering trendy and affordable clothing for men, women, and children.",
             },
             {
                 name: "A101",
-                viewsCount: 2534,
+                views: 2534,
                 description:
                     "Discount retail chain in Turkey offering a variety of groceries, household items, and personal care products at affordable prices.",
             },
             {
                 name: "Koton",
-                viewsCount: 55,
+                views: 55,
                 description:
                     "Turkish clothing brand with a wide range of fashionable apparel, accessories, and footwear.",
             },
-            { name: "Mavi Jeans", viewsCount: 889 },
+            { name: "Mavi Jeans", views: 889 },
         ],
     });
     console.log("Created some charges! -->", charge.count);
@@ -45,8 +45,8 @@ async function main() {
                 displayName: "John Doe",
                 content:
                     "I don't know what this Koton charge is for, but it's a bit too high for my liking.",
-                likeCounter: 238,
-                dislikeCounter: 14,
+                likes: 238,
+                dislikes: 14,
                 chargeName: "Koton",
                 commentType: "info",
             },
@@ -55,8 +55,8 @@ async function main() {
                 displayName: "Jane Doe",
                 content:
                     "I love Koton, but this charge seems suspicious. Has anyone else experienced this?",
-                likeCounter: 142,
-                dislikeCounter: 37,
+                likes: 142,
+                dislikes: 37,
                 chargeName: "Koton",
                 commentType: "info",
             },
@@ -65,8 +65,8 @@ async function main() {
                 displayName: "Sam Smith",
                 content:
                     "I got charged by Koton, but I haven't shopped there in weeks. Anyone else have this issue?",
-                likeCounter: 433,
-                dislikeCounter: 93,
+                likes: 433,
+                dislikes: 93,
                 chargeName: "Koton",
                 commentType: "fraud",
             },
@@ -75,8 +75,8 @@ async function main() {
                 displayName: "Emma Watson",
                 content:
                     "I was surprised to see a Koton charge on my card. I haven't been to Koton in months!",
-                likeCounter: 856,
-                dislikeCounter: 27,
+                likes: 856,
+                dislikes: 27,
                 chargeName: "Koton",
                 commentType: "fraud",
             },
@@ -85,8 +85,8 @@ async function main() {
                 displayName: "David Beckham",
                 content:
                     "I don't understand this Koton charge. I haven't shopped there in ages!",
-                likeCounter: 601,
-                dislikeCounter: 53,
+                likes: 601,
+                dislikes: 53,
                 chargeName: "Koton",
                 commentType: "info",
             },
@@ -95,8 +95,8 @@ async function main() {
                 displayName: "Jennifer Aniston",
                 content:
                     "I was surprised to see a Starbucks charge on my card. I haven't been to Starbucks in weeks!",
-                likeCounter: 435,
-                dislikeCounter: 19,
+                likes: 435,
+                dislikes: 19,
                 chargeName: "Starbucks",
                 commentType: "info",
             },
@@ -105,8 +105,8 @@ async function main() {
                 displayName: "Leonardo DiCaprio",
                 content:
                     "This Starbucks charge is making me suspicious. I hope my card hasn't been compromised.",
-                likeCounter: 621,
-                dislikeCounter: 56,
+                likes: 621,
+                dislikes: 56,
                 chargeName: "Starbucks",
                 commentType: "info",
             },
@@ -115,8 +115,8 @@ async function main() {
                 displayName: "Angelina Jolie",
                 content:
                     "I got charged by Starbucks for a coffee that I didn't even buy. This is frustrating!",
-                likeCounter: 125,
-                dislikeCounter: 67,
+                likes: 125,
+                dislikes: 67,
                 chargeName: "Starbucks",
                 commentType: "fraud",
             },
@@ -125,8 +125,8 @@ async function main() {
                 displayName: "Brad Pitt",
                 content:
                     "I don't know what this A101 charge is for. I haven't even heard of this store!",
-                likeCounter: 391,
-                dislikeCounter: 14,
+                likes: 391,
+                dislikes: 14,
                 chargeName: "A101",
                 commentType: "fraud",
             },
@@ -135,8 +135,8 @@ async function main() {
                 displayName: "Scarlett Johansson",
                 content:
                     "I'm pretty sure I didn't make this A101 purchase. Has anyone else experienced this?",
-                likeCounter: 267,
-                dislikeCounter: 46,
+                likes: 267,
+                dislikes: 46,
                 chargeName: "A101",
                 commentType: "info",
             },

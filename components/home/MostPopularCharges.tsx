@@ -1,10 +1,10 @@
 import { db } from "@/lib/db";
 import ChargeItem from "./ChargeItem";
-import { Card, CardHeader, CardTitle, CardContent } from "components/ui/card";
+import { Card, CardHeader, CardTitle, CardContent } from "@/components/ui/card";
 
 async function getCharges() {
     const res = await db.charge.findMany({
-        orderBy: { viewsCount: "desc" },
+        orderBy: { views: "desc" },
         take: 10,
     });
     return res;

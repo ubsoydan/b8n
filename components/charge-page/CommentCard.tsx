@@ -17,21 +17,21 @@ function formatTimestamp(timestamp: Date, locale: string): string {
     });
 }
 interface CommentCardProps {
-    content: string | null;
-    date: Date | null;
-    commentor: string | null;
-    // likeCount: number | null;
-    // dislikeCount: number | null;
-    id: string | null;
-    commentType: string | null;
+    content: string;
+    date: Date;
+    commentor: string;
+    likes: number;
+    dislikes: number;
+    id: string;
+    commentType: string;
 }
 
 export default function CommentCard({
     content,
     date,
     commentor,
-    // likeCount,
-    // dislikeCount,
+    likes,
+    dislikes,
     id,
     commentType,
 }: CommentCardProps) {
@@ -66,8 +66,8 @@ export default function CommentCard({
                 </div>
                 <CommentInteraction
                     commentId={id}
-                    likeCount={likeCount}
-                    dislikeCount={dislikeCount}
+                    likes={likes}
+                    dislikes={dislikes}
                 />
             </div>
         </div>
