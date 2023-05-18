@@ -8,9 +8,10 @@ import CommentCard from "@/components/charge-page/CommentCard";
 import HorizontalBanner from "@/components/HorizontalBanner";
 import VerticalBanner from "@/components/VerticalBanner";
 import { Separator } from "@/components/ui/separator";
-import { getCurrentUser } from "@/lib/session";
+import { Metadata } from "next";
 
 async function getCharge(chargeName: Charge["name"]) {
+    // Get relevant charge -case insensitive-
     const result = await db.charge.findFirst({
         where: {
             name: {
@@ -18,13 +19,16 @@ async function getCharge(chargeName: Charge["name"]) {
                 mode: "insensitive",
             },
         },
+        // Get comments by like count
         include: {
-            comments: true,
+            comments: { orderBy: { likes: "desc" } },
         },
     });
 
     if (!result) {
-        console.log("getcharge on charge page is causing problems");
+        throw new Error(
+            "Failed at fetching that charge! See getCharge at dynamic page"
+        );
     }
     // Increase view count +1 in database
     await db.charge.update({
@@ -32,7 +36,7 @@ async function getCharge(chargeName: Charge["name"]) {
             name: result?.name,
         },
         data: {
-            viewsCount: {
+            views: {
                 increment: 1,
             },
         },
@@ -41,20 +45,51 @@ async function getCharge(chargeName: Charge["name"]) {
     return result;
 }
 
+export async function generateMetadata({ params }: any): Promise<Metadata> {
+    // Replace dashes that are found in Url
+    const decodedChargeName = decodeURI(params.id.replace(/-/g, " "));
+    // Charge gets parsed as keywords for SEO
+    const processKeywords = decodedChargeName.split(" ");
+
+    const charge = await getCharge(decodedChargeName);
+    return {
+        title: charge?.name,
+        description: `${charge?.name} adlı kart ödemesi veya harcaması hakkında bilgi alın. Sizden habersiz kartınızdan harcama mı yapılmış? Harcama itirazında bulunmak mı istiyorsunuz? Ne ödemesi olduğunu anlamadınız mı?`,
+        keywords: [
+            ...processKeywords,
+            "bilinmeyen",
+            "izinsiz",
+            "habersiz",
+            "harcama",
+            "ödeme",
+            "itiraz",
+            "kart",
+            "banka",
+            "kredi",
+            "öğren",
+            "sorgula",
+            "bilgi",
+            "nedir",
+            "hesap",
+            "para",
+            "çekilmiş",
+            "finans",
+            "ekonomi",
+        ],
+    };
+}
+
 interface ChargePageProps {
     params: { id: string };
 }
 
 export default async function ChargePage({ params }: ChargePageProps) {
-    const user = await getCurrentUser();
-
     const decodedChargeName = decodeURI(params.id.replace(/-/g, " "));
 
     const charge = await getCharge(decodedChargeName);
 
-    if (!charge || charge === null) {
-        // put an error page here later
-        throw new Error("boyle bi kayit yok");
+    if (!charge) {
+        throw new Error("No such charge!");
     }
 
     const comments = charge.comments;
@@ -89,17 +124,15 @@ export default async function ChargePage({ params }: ChargePageProps) {
                                 id={comment.id}
                                 content={comment.content}
                                 commentor={comment.displayName}
-                                // likeCount={comment.likeCounter}
-                                // dislikeCount={comment.dislikeCounter}
+                                likes={comment.likes}
+                                dislikes={comment.dislikes}
                                 date={comment.createdAt}
                                 commentType={comment.commentType}
                             />
                         );
                     })}
                     <Separator className="my-2 md:my-4 w-3/4" />
-
-                    {/* @ts-expect-error Server Component */}
-                    <AddComment charge={decodedChargeName} user={user} />
+                    <AddComment charge={decodedChargeName} />
                 </div>
                 <div className="hidden md:block">
                     {charge.companyName ? (

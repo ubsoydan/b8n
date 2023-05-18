@@ -2,10 +2,33 @@ import Nav from "@/components/layout/Nav";
 import Footer from "@/components/layout/Footer";
 import "./globals.css";
 import Script from "next/script";
+import { Metadata } from "next";
 
-export const metadata = {
+export const metadata: Metadata = {
     title: "Bilinmeyen Harcama",
-    description: "Kartınızdaki bilinmeyen harcamaları kontrol edin!",
+    description:
+        "Kartınızdaki bilinmeyen harcamaları kontrol edin! Sizden habersiz kartınızdan harcama mı yapılmış? Harcama itirazında bulunmak mı istiyorsunuz? Ne ödemesi olduğunu anlamadınız mı? Kart harcamanız hakkında bilgi alın.",
+    keywords: [
+        "bilinmeyen",
+        "izinsiz",
+        "habersiz",
+        "harcama",
+        "ödeme",
+        "itiraz",
+        "kart",
+        "banka",
+        "kredi",
+        "öğren",
+        "sorgula",
+        "bilgi",
+        "nedir",
+        "hesap",
+        "para",
+        "çekilmiş",
+        "finans",
+        "ekonomi",
+    ],
+
     icons: {
         icon: {
             url: "/favicon.png",

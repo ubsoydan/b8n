@@ -11,6 +11,33 @@ import {
 } from "components/ui/card";
 import { Separator } from "components/ui/separator";
 import Link from "next/link";
+import { Metadata } from "next";
+
+export const metadata: Metadata = {
+    title: "Sorgula | Bilinmeyen Harcama",
+    description:
+        "Kartınızda ne olduğunu anlamadığınız bir ödeme mi gördünüz? Ödemeniz veya harcamanız hakkında bilgi almak için buradan sorgulayın.",
+    keywords: [
+        "bilinmeyen",
+        "izinsiz",
+        "habersiz",
+        "harcama",
+        "ödeme",
+        "itiraz",
+        "kart",
+        "banka",
+        "kredi",
+        "öğren",
+        "sorgula",
+        "bilgi",
+        "nedir",
+        "hesap",
+        "para",
+        "çekilmiş",
+        "finans",
+        "ekonomi",
+    ],
+};
 
 async function checkCommentsForFraud(
     chargeName: string
@@ -111,7 +138,10 @@ export default async function CheckPage({
 
             <Card className="mx-4 lg:w-[48rem]">
                 <CardHeader>
-                    <CardTitle>Dolandiricilik Ihtimalini Ogren</CardTitle>
+                    <CardTitle>
+                        Harcamanın güvenilirliğini ölçerek dolandırıcılık
+                        ihtimalini ölç
+                    </CardTitle>
                     <CardDescription>
                         ...fdagesgrwg Lorem ipsum, dolor sit amet consectetur
                         adipisicing elit. Aut id maxime nobis laboriosam
