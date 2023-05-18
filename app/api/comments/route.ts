@@ -1,6 +1,7 @@
 import { z } from "zod";
 import { db } from "@/lib/db";
 import { NextResponse } from "next/server";
+import { validateEmail } from "@/lib/validation";
 
 const commentCreateSchema = z.object({
     displayName: z.string(),
@@ -15,6 +16,13 @@ export async function POST(req: Request) {
         const json = await req.json();
         const body = commentCreateSchema.parse(json);
         // const body = await req.json();
+
+        const submittedEmail = body.email;
+        const isValidEmail = validateEmail(submittedEmail);
+
+        if (!isValidEmail) {
+            return new Response("Invalid email!", { status: 400 });
+        }
 
         const comment = await db.comment.create({
             data: {
