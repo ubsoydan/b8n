@@ -90,7 +90,7 @@ export default function CommentInteraction({
                 size="sm"
             >
                 {isLiked ? (
-                    <ThumbsUp fill="grey" className="h-4 w-4 md:mr-2" />
+                    <ThumbsUp fill="#2edce5" className="h-4 w-4 md:mr-2" />
                 ) : (
                     <ThumbsUp className="h-4 w-4 md:mr-2" />
                 )}
@@ -104,7 +104,7 @@ export default function CommentInteraction({
                 size="sm"
             >
                 {isDisliked ? (
-                    <ThumbsDown fill="grey" className="h-4 w-4 md:mr-2" />
+                    <ThumbsDown fill="#2edce5" className="h-4 w-4 md:mr-2" />
                 ) : (
                     <ThumbsDown className="h-4 w-4 md:mr-2" />
                 )}

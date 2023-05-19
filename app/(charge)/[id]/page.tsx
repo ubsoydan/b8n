@@ -113,8 +113,8 @@ export default async function ChargePage({ params }: ChargePageProps) {
                         ) : null}
                     </div>
 
-                    <Separator className="my-2 w-3/4" />
-                    <h3 className="text-lg md:text-xl font-semibold my-4 px-4 sm:px-6 md:px-8 lg:px-10 xl:px-12">
+                    <Separator className="my-8 w-3/4" />
+                    <h3 className="text-xl md:text-2xl font-semibold my-4 ml-4 px-4 sm:px-6 md:px-8 lg:px-10 xl:px-12 text-[#327ee2]">
                         Yorumlar
                     </h3>
                     {comments.map((comment) => {

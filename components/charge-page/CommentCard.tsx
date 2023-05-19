@@ -1,21 +1,13 @@
 import { Info, AlertTriangle } from "lucide-react";
+import { Card, CardContent } from "@/components/ui/card";
 import {
-    Card,
-    CardContent,
-    CardDescription,
-    CardFooter,
-    CardHeader,
-    CardTitle,
-} from "@/components/ui/card";
+    Tooltip,
+    TooltipContent,
+    TooltipProvider,
+    TooltipTrigger,
+} from "@/components/ui/tooltip";
 import CommentInteraction from "./CommentInteraction";
-
-function formatTimestamp(timestamp: Date, locale: string): string {
-    return timestamp.toLocaleDateString(locale, {
-        year: "numeric",
-        month: "numeric",
-        day: "numeric",
-    });
-}
+import formatTimestamp from "@/lib/format-timestamp";
 interface CommentCardProps {
     content: string;
     date: Date;
@@ -53,7 +45,16 @@ export default function CommentCard({
                         {commentType === "info" ? (
                             <Info color="blue" size="20" />
                         ) : (
-                            <AlertTriangle color="red" size="20" />
+                            <TooltipProvider>
+                                <Tooltip>
+                                    <TooltipTrigger asChild>
+                                        <AlertTriangle color="red" size="20" />
+                                    </TooltipTrigger>
+                                    <TooltipContent>
+                                        <p>Kullanıcı harcamayı şüpheli buldu</p>
+                                    </TooltipContent>
+                                </Tooltip>
+                            </TooltipProvider>
                         )}
                     </div>
                     <div

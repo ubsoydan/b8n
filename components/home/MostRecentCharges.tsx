@@ -1,11 +1,4 @@
-import {
-    Card,
-    CardContent,
-    CardDescription,
-    CardFooter,
-    CardHeader,
-    CardTitle,
-} from "../ui/card";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 
 import ChargeItem from "./ChargeItem";
 import { db } from "@/lib/db";
@@ -13,7 +6,7 @@ import { db } from "@/lib/db";
 async function getCharges() {
     const res = await db.charge.findMany({
         orderBy: { id: "desc" },
-        take: 10,
+        take: 15,
     });
     return res;
 }
@@ -23,7 +16,9 @@ export default async function MostRecentCharges() {
     return (
         <Card className="w-full h-auto my-6 md:my-0 lg:w-1/2">
             <CardHeader>
-                <CardTitle>En son arananlar</CardTitle>
+                <CardTitle className="text-xl text-[#1797ff]">
+                    En son arananlar
+                </CardTitle>
             </CardHeader>
             <CardContent>
                 <ul>
