@@ -11,6 +11,40 @@ import {
 } from "components/ui/card";
 import { Separator } from "components/ui/separator";
 import Link from "next/link";
+import { Metadata } from "next";
+import {
+    Accordion,
+    AccordionItem,
+    AccordionContent,
+    AccordionTrigger,
+} from "@/components/ui/accordion";
+import Image from "next/image";
+
+export const metadata: Metadata = {
+    title: "Sorgula | Bilinmeyen Harcama",
+    description:
+        "Kartınızda ne olduğunu anlamadığınız bir ödeme mi gördünüz? Ödemeniz veya harcamanız hakkında bilgi almak için buradan sorgulayın.",
+    keywords: [
+        "bilinmeyen",
+        "izinsiz",
+        "habersiz",
+        "harcama",
+        "ödeme",
+        "itiraz",
+        "kart",
+        "banka",
+        "kredi",
+        "öğren",
+        "sorgula",
+        "bilgi",
+        "nedir",
+        "hesap",
+        "para",
+        "çekilmiş",
+        "finans",
+        "ekonomi",
+    ],
+};
 
 async function checkCommentsForFraud(
     chargeName: string
@@ -106,21 +140,42 @@ export default async function CheckPage({
     return (
         <>
             <h3 className="text-2xl mx-4 text-center font-semibold md:text-3xl lg:text-4xl ">
-                DOLANDIRICILIK İHTİMALİNİ ÖĞREN
+                GÜVENİLİRLİK ÖLÇÜMÜ
             </h3>
 
             <Card className="mx-4 lg:w-[48rem]">
                 <CardHeader>
-                    <CardTitle>Dolandiricilik Ihtimalini Ogren</CardTitle>
+                    <CardTitle>
+                        Harcamanın güvenilirliğini ölçerek dolandırıcılık
+                        ihtimalini öğrenin.
+                    </CardTitle>
                     <CardDescription>
-                        ...fdagesgrwg Lorem ipsum, dolor sit amet consectetur
-                        adipisicing elit. Aut id maxime nobis laboriosam
-                        deleniti rerum omnis? Obcaecati blanditiis, quae ab
-                        consectetur dolorum fugiat corporis iste, magni vero
-                        neque adipisci dicta?
+                        Harcama hakkında daha detaylı bilgi almak için{" "}
+                        <strong>
+                            banka kayıtlarında görünen harcama ismini girin.
+                        </strong>
                     </CardDescription>
                 </CardHeader>
                 <CardContent>
+                    <Accordion type="single" collapsible className="mb-4">
+                        <AccordionItem value="item-1">
+                            <AccordionTrigger>
+                                Harcama ismini nereden öğrenebilirim?
+                            </AccordionTrigger>
+                            <AccordionContent>
+                                Bankacılık uygulamanızdan mevzubahis harcamanın
+                                dekontuna veya detayına ulaşın. Harcama ismi
+                                &quot;İŞLEM NO&quot; veya &quot;ÜYE İŞYERİ&quot;
+                                olarak görünecektir.
+                                <Image
+                                    src="/how-to.gif"
+                                    width={360}
+                                    height={240}
+                                    alt="harcama ismini bul"
+                                />
+                            </AccordionContent>
+                        </AccordionItem>
+                    </Accordion>
                     <FraudCheckForm />
                 </CardContent>
             </Card>
@@ -130,6 +185,9 @@ export default async function CheckPage({
                         <CardTitle className=" text-cyan-700">
                             SONUÇLAR
                         </CardTitle>
+                        <CardDescription>
+                            Harcama ismine tıklayarak detaylara ulaşabilirsiniz.
+                        </CardDescription>
                     </CardHeader>
                     <CardContent>
                         <div className="flex">

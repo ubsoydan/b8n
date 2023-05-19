@@ -26,7 +26,7 @@ export async function PATCH(req: Request) {
                         //         id: user?.id,
                         //     },
                         // },
-                        likeCounter: {
+                        likes: {
                             increment: 1,
                         },
                     },
@@ -44,7 +44,7 @@ export async function PATCH(req: Request) {
                         //         id: user?.id,
                         //     },
                         // },
-                        dislikeCounter: {
+                        dislikes: {
                             increment: 1,
                         },
                     },

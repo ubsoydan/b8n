@@ -13,8 +13,8 @@ datasource db {
 model Charge {
   name         String  @unique @id
   id Int @default(autoincrement())
-  viewsCount Int @default(1)
-  
+  views Int @default(1)
+
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 
@@ -26,49 +26,74 @@ model Charge {
 
   comments       Comment[]
 
-  @@index([viewsCount])
+  @@index([views])
 }
 
 model Comment {
   id        String   @id @default(uuid())
   email String
   displayName String
-  userId User[] @relation(name: "userComments")
 
   content String
   commentType String
-  
-  likeCounter Int @default(0)
-  likedBy User[] @relation(name: "likes")
-  // ALTERNATIVE likes User[] @relation("likes")
 
-  dislikeCounter Int @default(0)
-  dislikedBy User[] @relation(name: "dislikes")
-  // ALTERNATIVE dislikes User[] @relation("dislikes")
+  likes Int @default(0)
+  dislikes Int @default(0)
+
+ // subset of a charge
+  chargeName String
+  charge   Charge @relation(fields: [chargeName], references: [name])
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 
-
   deleted Boolean @default(false)
+}
 
-  chargeName String
-  charge   Charge @relation(fields: [chargeName], references: [name])
+
+// AUTH RELATED - FOR POSSIBLE CMS IN THE FUTURE
+
+model Account {
+  id                 String  @id @default(cuid())
+  userId             String
+  type               String
+  provider           String
+  providerAccountId  String
+  refresh_token      String?  @db.Text
+  access_token       String?  @db.Text
+  expires_at         Int?
+  token_type         String?
+  scope              String?
+  id_token           String?  @db.Text
+  session_state      String?
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@unique([provider, providerAccountId])
+}
+
+model Session {
+  id           String   @id @default(cuid())
+  sessionToken String   @unique
+  userId       String
+  expires      DateTime
+  user         User     @relation(fields: [userId], references: [id], onDelete: Cascade)
 }
 
 model User {
-  id String @id @default("anon")
+  id            String    @id @default(cuid())
+  name          String?
+  email         String?   @unique
+  emailVerified DateTime?
+  image         String?
+  accounts      Account[]
+  sessions      Session[]
+}
 
-// switched to many-many relations
-  userLiked Comment[] @relation(name: "likes")
-  userDisliked Comment[] @relation(name: "dislikes")
-  comments Comment[] @relation(name: "userComments")
+model VerificationToken {
+  identifier String
+  token      String   @unique
+  expires    DateTime
 
-
-  // ALTERNATIVE
-  // userLiked String[]
-  // likes Comment @relation("likes", fields: [userLiked], references: [id])
-
-  // userDisliked String[]
-  // dislikes Comment @relation("dislikes", fields: [userDisliked], references: [id])
+  @@unique([identifier, token])
 }

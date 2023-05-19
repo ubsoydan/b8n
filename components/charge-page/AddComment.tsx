@@ -6,16 +6,17 @@ import {
     SelectItem,
     SelectTrigger,
     SelectValue,
-} from "components/ui/select";
-import { Input } from "components/ui/input";
-import { Label } from "components/ui/label";
-import { Button } from "components/ui/button";
-import { Textarea } from "components/ui/textarea";
+} from "@/components/ui/select";
+import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
+import { Button } from "@/components/ui/button";
+import { Textarea } from "@/components/ui/textarea";
 import { useState } from "react";
 import { useRouter } from "next/navigation";
 // import UserLS from "@/lib/user";
 interface AddCommentProps {
     charge: string;
+    // user: object;
 }
 
 export default function AddComment({ charge }: AddCommentProps) {
@@ -37,11 +38,10 @@ export default function AddComment({ charge }: AddCommentProps) {
                 "Content-Type": "application/json",
             },
             body: JSON.stringify({
-                displayName: name,
-                email: email,
                 content: content,
                 chargeName: chargeName,
-                // user: user,
+                email: email,
+                displayName: name,
                 commentType: commentType,
             }),
         });
@@ -72,6 +72,7 @@ export default function AddComment({ charge }: AddCommentProps) {
                             value={name}
                             onChange={(e) => setName(e.target.value)}
                             required
+                            minLength={3}
                         />
                     </div>
                     <div className="grid w-full max-w-xs items-center gap-1.5 my-2">
@@ -79,16 +80,24 @@ export default function AddComment({ charge }: AddCommentProps) {
                             E-posta adresiniz
                         </Label>
                         <Input
-                            type="text"
+                            type="email"
                             id="commentorEmail"
                             aria-placeholder="E-posta adresinizi giriniz..."
                             value={email}
                             onChange={(e) => setEmail(e.target.value)}
                             required
+                            pattern="[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}"
+                            aria-describedby="email-error"
                         />
+                        <span id="email-error" className="hidden">
+                            Lütfen example@mail.com formatında geçerli bir email
+                            adresi giriniz.
+                        </span>
                     </div>
                     <div id="comment-type" className="my-2">
-                        <Label>Yorumunuz ne hakkında?</Label>
+                        <Label>
+                            Şüpheli bir harcama olduğunu düşünüyor musunuz?
+                        </Label>
 
                         <Select
                             onValueChange={(value) => setCommentType(value)}
@@ -100,12 +109,8 @@ export default function AddComment({ charge }: AddCommentProps) {
                             </SelectTrigger>
                             <SelectContent>
                                 <SelectGroup>
-                                    <SelectItem value="info">
-                                        Bilgi / Tavsiye
-                                    </SelectItem>
-                                    <SelectItem value="fraud">
-                                        Şüpheli Harcama
-                                    </SelectItem>
+                                    <SelectItem value="info">Hayır</SelectItem>
+                                    <SelectItem value="fraud">Evet</SelectItem>
                                 </SelectGroup>
                             </SelectContent>
                         </Select>

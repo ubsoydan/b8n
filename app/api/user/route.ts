@@ -1,27 +1,29 @@
-import { db } from "@/lib/db";
-import * as z from "zod";
+// DISABLED - going for anonymous users rn
 
-const userCreateSchema = z.object({
-    id: z.string(),
-});
+// import { db } from "@/lib/db";
+// import * as z from "zod";
 
-export async function POST(req: Request) {
-    try {
-        const json = await req.json();
-        const body = userCreateSchema.parse(json);
+// const userCreateSchema = z.object({
+//     id: z.string(),
+// });
 
-        const user = await db.user.create({
-            data: {
-                id: body.id,
-            },
-        });
+// export async function POST(req: Request) {
+//     try {
+//         const json = await req.json();
+//         const body = userCreateSchema.parse(json);
 
-        return new Response(JSON.stringify(user));
-    } catch (err) {
-        if (err instanceof z.ZodError) {
-            return new Response(JSON.stringify(err.issues), { status: 422 });
-        }
+//         const user = await db.user.create({
+//             data: {
+//                 id: body.id,
+//             },
+//         });
 
-        return new Response("problem with user api endpoint", { status: 500 });
-    }
-}
+//         return new Response(JSON.stringify(user));
+//     } catch (err) {
+//         if (err instanceof z.ZodError) {
+//             return new Response(JSON.stringify(err.issues), { status: 422 });
+//         }
+
+//         return new Response("problem with user api endpoint", { status: 500 });
+//     }
+// }

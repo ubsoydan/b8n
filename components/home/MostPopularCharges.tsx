@@ -1,11 +1,11 @@
 import { db } from "@/lib/db";
 import ChargeItem from "./ChargeItem";
-import { Card, CardHeader, CardTitle, CardContent } from "components/ui/card";
+import { Card, CardHeader, CardTitle, CardContent } from "@/components/ui/card";
 
 async function getCharges() {
     const res = await db.charge.findMany({
-        orderBy: { viewsCount: "desc" },
-        take: 10,
+        orderBy: { views: "desc" },
+        take: 15,
     });
     return res;
 }
@@ -16,7 +16,9 @@ async function MostPopularCharges() {
     return (
         <Card className="w-full h-auto lg:w-1/2 mr-4">
             <CardHeader>
-                <CardTitle>En cok arananlar</CardTitle>
+                <CardTitle className="text-xl text-[#1797ff]">
+                    En çok arananlar
+                </CardTitle>
             </CardHeader>
             <CardContent>
                 <ul>

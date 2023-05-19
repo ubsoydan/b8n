@@ -1,0 +1,152 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model Charge {
+  name         String  @unique @id
+  id Int @default(autoincrement())
+  viewsCount Int @default(1)
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  description  String?
+  companyName  String?
+  website      String?
+  contactWeb   String?
+  contactPhone String?
+
+  comments       Comment[]
+
+  @@index([viewsCount])
+}
+
+model Comment {
+  id        String   @id @default(uuid())
+  // email String
+  displayName String
+
+  content String
+  commentType String
+
+  likes Like[]
+  dislikes Dislike[]
+
+ // subset of a charge
+  chargeName String
+  charge   Charge @relation(fields: [chargeName], references: [name])
+
+ // belongs to a user
+  userEmail String
+  user User @relation(fields: [userEmail], references: [email], onDelete: Cascade)
+
+  // likeCounter Int @default(0)
+  // likedBy User[] @relation(name: "likes")
+  // // ALTERNATIVE likes User[] @relation("likes")
+
+  // dislikeCounter Int @default(0)
+  // dislikedBy User[] @relation(name: "dislikes")
+  // // ALTERNATIVE dislikes User[] @relation("dislikes")
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  deleted Boolean @default(false)
+}
+
+model Account {
+  id                 String  @id @default(cuid())
+  userId             String
+  type               String
+  provider           String
+  providerAccountId  String
+  refresh_token      String?  @db.Text
+  access_token       String?  @db.Text
+  expires_at         Int?
+  token_type         String?
+  scope              String?
+  id_token           String?  @db.Text
+  session_state      String?
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@unique([provider, providerAccountId])
+}
+
+model Session {
+  id           String   @id @default(cuid())
+  sessionToken String   @unique
+  userId       String
+  expires      DateTime
+  user         User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+}
+
+model User {
+  id            String    @id @default(cuid())
+  name          String?
+  email         String?   @unique
+  emailVerified DateTime?
+  image         String?
+  accounts      Account[]
+  sessions      Session[]
+  comments Comment[]
+likes Like[]
+dislikes Dislike[]
+  // // switched to many-many relations
+//   userLiked Comment[] @relation(name: "likes")
+//   userDisliked Comment[] @relation(name: "dislikes")
+//   comments Comment[] @relation(name: "userComments")
+
+}
+model VerificationToken {
+  identifier String
+  token      String   @unique
+  expires    DateTime
+
+  @@unique([identifier, token])
+}
+
+  // ALTERNATIVE
+  // userLiked String[]
+  // likes Comment @relation("likes", fields: [userLiked], references: [id])
+
+  // userDisliked String[]
+  // dislikes Comment @relation("dislikes", fields: [userDisliked], references: [id])
+
+model Like {
+
+  likeCount Int @default(0)
+
+  // for this comment
+    commentId String @unique
+  comment Comment @relation(fields: [commentId], references: [id], onDelete: Cascade)
+
+  // by this user
+    userId String @unique
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+
+}
+
+model Dislike {
+  
+  dislikeCount Int @default(0)
+
+  // for this comment
+    commentId String @unique
+  comment Comment @relation(fields: [commentId], references: [id], onDelete: Cascade)
+
+  // by this user
+    userId String @unique
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+
+}

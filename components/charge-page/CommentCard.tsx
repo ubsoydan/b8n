@@ -1,37 +1,29 @@
 import { Info, AlertTriangle } from "lucide-react";
+import { Card, CardContent } from "@/components/ui/card";
 import {
-    Card,
-    CardContent,
-    CardDescription,
-    CardFooter,
-    CardHeader,
-    CardTitle,
-} from "components/ui/card";
+    Tooltip,
+    TooltipContent,
+    TooltipProvider,
+    TooltipTrigger,
+} from "@/components/ui/tooltip";
 import CommentInteraction from "./CommentInteraction";
-
-function formatTimestamp(timestamp: Date, locale: string): string {
-    return timestamp.toLocaleDateString(locale, {
-        year: "numeric",
-        month: "numeric",
-        day: "numeric",
-    });
-}
+import formatTimestamp from "@/lib/format-timestamp";
 interface CommentCardProps {
-    content: String | null;
-    date: Date | null;
-    commentor: String | null;
-    likeCount: Number | null;
-    dislikeCount: Number | null;
-    id: String | null;
-    commentType: String | null;
+    content: string;
+    date: Date;
+    commentor: string;
+    likes: number;
+    dislikes: number;
+    id: string;
+    commentType: string;
 }
 
 export default function CommentCard({
     content,
     date,
     commentor,
-    likeCount,
-    dislikeCount,
+    likes,
+    dislikes,
     id,
     commentType,
 }: CommentCardProps) {
@@ -53,7 +45,16 @@ export default function CommentCard({
                         {commentType === "info" ? (
                             <Info color="blue" size="20" />
                         ) : (
-                            <AlertTriangle color="red" size="20" />
+                            <TooltipProvider>
+                                <Tooltip>
+                                    <TooltipTrigger asChild>
+                                        <AlertTriangle color="red" size="20" />
+                                    </TooltipTrigger>
+                                    <TooltipContent>
+                                        <p>Kullanıcı harcamayı şüpheli buldu</p>
+                                    </TooltipContent>
+                                </Tooltip>
+                            </TooltipProvider>
                         )}
                     </div>
                     <div
@@ -66,8 +67,8 @@ export default function CommentCard({
                 </div>
                 <CommentInteraction
                     commentId={id}
-                    likeCount={likeCount}
-                    dislikeCount={dislikeCount}
+                    likes={likes}
+                    dislikes={dislikes}
                 />
             </div>
         </div>

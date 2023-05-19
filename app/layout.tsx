@@ -1,11 +1,40 @@
-import NavBar from "components/layout/NavBar";
-import Footer from "components/layout/Footer";
+import Nav from "@/components/layout/Nav";
+import Footer from "@/components/layout/Footer";
 import "./globals.css";
 import Script from "next/script";
+import { Metadata } from "next";
+import { Nunito_Sans } from "next/font/google";
+const font = Nunito_Sans({
+    subsets: ["latin"],
+    weight: "400",
+    style: "normal",
+});
 
-export const metadata = {
+export const metadata: Metadata = {
     title: "Bilinmeyen Harcama",
-    description: "Kartınızdaki bilinmeyen harcamaları kontrol edin!",
+    description:
+        "Kartınızdaki bilinmeyen harcamaları kontrol edin! Sizden habersiz kartınızdan harcama mı yapılmış? Harcama itirazında bulunmak mı istiyorsunuz? Ne ödemesi olduğunu anlamadınız mı? Kart harcamanız hakkında bilgi alın.",
+    keywords: [
+        "bilinmeyen",
+        "izinsiz",
+        "habersiz",
+        "harcama",
+        "ödeme",
+        "itiraz",
+        "kart",
+        "banka",
+        "kredi",
+        "öğren",
+        "sorgula",
+        "bilgi",
+        "nedir",
+        "hesap",
+        "para",
+        "çekilmiş",
+        "finans",
+        "ekonomi",
+    ],
+
     icons: {
         icon: {
             url: "/favicon.png",
@@ -23,8 +52,11 @@ export default function RootLayout({
     return (
         <html lang="tr">
             <body>
-                <div className="h-full w-full bg-gradient-to-br from-indigo-100 via-white to-cyan-200">
-                    <NavBar />
+                <div
+                    className={`h-full w-full bg-gradient-to-br from-sky-100 via-white to-cyan-200 ${font.className}`}
+                >
+                    {/* @ts-expect-error Server Component */}
+                    <Nav />
                     <main className="flex min-h-screen w-full flex-col items-center justify-center py-32">
                         {children}
                     </main>
