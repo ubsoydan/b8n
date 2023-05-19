@@ -1,12 +1,7 @@
-import Image from "next/image";
-import { Inter } from "next/font/google";
-
-import FraudCheckBox from "components/home/FraudCheckBox";
-import VerticalBanner from "components/VerticalBanner";
-import MostPopularCharges from "components/home/MostPopularCharges";
-import MostRecentCharges from "components/home/MostRecentCharges";
-
-const inter = Inter({ subsets: ["latin"] });
+import FraudCheckBox from "@/components/home/FraudCheckBox";
+import VerticalBanner from "@/components/VerticalBanner";
+import MostPopularCharges from "@/components/home/MostPopularCharges";
+import MostRecentCharges from "@/components/home/MostRecentCharges";
 
 export default function Home() {
     return (
