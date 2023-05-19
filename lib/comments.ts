@@ -30,7 +30,7 @@ export async function dislikeComment({ commentId }: interactionProps) {
                 id: commentId,
             },
             data: {
-                likes: {
+                dislikes: {
                     increment: 1,
                 },
             },
