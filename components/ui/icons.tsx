@@ -5,6 +5,9 @@ import {
     LayoutDashboard,
     LogOut,
     type Icon as LucideIcon,
+    HelpCircle,
+    AlertTriangle,
+    BellRing,
 } from "lucide-react";
 
 export type Icon = LucideIcon;
@@ -14,6 +17,9 @@ export const Icons = {
     chevronLeft: ChevronLeft,
     dashboard: LayoutDashboard,
     logout: LogOut,
+    question: HelpCircle,
+    danger: AlertTriangle,
+    bell: BellRing,
     google: ({ ...props }: LucideProps) => (
         <svg
             data-icon="google"
