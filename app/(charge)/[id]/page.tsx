@@ -47,7 +47,7 @@ async function getCharge(chargeName: Charge["name"]) {
 
 export async function generateMetadata({ params }: any): Promise<Metadata> {
     // Replace dashes that are found in Url
-    const decodedChargeName = decodeURI(params.id.replace(/-/g, " "));
+    const decodedChargeName = decodeURIComponent(params.id);
     // Charge gets parsed as keywords for SEO
     const processKeywords = decodedChargeName.split(" ");
 
@@ -84,7 +84,7 @@ interface ChargePageProps {
 }
 
 export default async function ChargePage({ params }: ChargePageProps) {
-    const decodedChargeName = decodeURI(params.id.replace(/-/g, " "));
+    const decodedChargeName = decodeURIComponent(params.id);
 
     const charge = await getCharge(decodedChargeName);
 

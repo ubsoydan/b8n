@@ -6,7 +6,7 @@ export async function GET(
     request: Request,
     { params }: { params: { id: string } }
 ) {
-    const id = decodeURI(params.id);
+    const id = decodeURIComponent(params.id);
     // const charge = await db.charge.findUnique({
     //     where: {
     //         name: id,
