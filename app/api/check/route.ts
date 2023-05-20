@@ -9,11 +9,12 @@ export async function GET(request: Request) {
          * Return it
          */
         const url = request.url;
-        const query = url.substring(url.indexOf("?q=") + 3).replace(/-/g, " ");
+        const query = url.substring(url.indexOf("?q=") + 3);
+        const decodedQuery = decodeURIComponent(query);
 
         const result = await db.charge.findUnique({
             where: {
-                name: query,
+                name: decodedQuery,
             },
         });
 
@@ -24,12 +25,12 @@ export async function GET(request: Request) {
 
         if (!result) {
             console.log(
-                `Couldnt find in DB, creating one with the name ${query} because result was`,
+                `Couldnt find in DB, creating one with the name ${decodedQuery} because result was`,
                 result
             );
             const createCharge = await db.charge.create({
                 data: {
-                    name: query,
+                    name: decodedQuery,
                 },
             });
 

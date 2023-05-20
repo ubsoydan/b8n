@@ -10,7 +10,7 @@ type ChargeItemProps = {
 };
 
 export default function ChargeItem({ chargeName }: ChargeItemProps) {
-    const encodedChargeName = encodeURI(chargeName).replace(/%20/g, "-");
+    const encodedChargeName = encodeURIComponent(chargeName);
     return (
         <li className="flex items-center">
             <ChevronRight size="18" color="#73a1d5" />

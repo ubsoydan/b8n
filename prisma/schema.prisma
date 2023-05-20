@@ -48,6 +48,10 @@ model Comment {
   updatedAt DateTime @updatedAt
 
   deleted Boolean @default(false)
+  
+  @@index([chargeName])
+  @@index([likes])
+  @@index([dislikes])
 }
 
 

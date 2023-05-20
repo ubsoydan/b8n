@@ -108,7 +108,7 @@ async function fetchChargeURL(chargeName: string): string {
     });
 
     const url = charge?.name;
-    const correctUrl = url.replace(/ /g, "-");
+    const correctUrl = encodeURIComponent(url);
     return correctUrl;
 }
 
@@ -128,7 +128,7 @@ export default async function CheckPage({
 
     if (typeof checkedCharge === "string") {
         // Format the charge name to be representable
-        checkedCharge = checkedCharge.replace(/-/g, " ");
+        checkedCharge = decodeURIComponent(checkedCharge);
         fraudCount = await checkCommentsForFraud(checkedCharge);
         showRisk = await showFraudRisk(fraudCount);
         checkedChargeUrl = await fetchChargeURL(checkedCharge);
