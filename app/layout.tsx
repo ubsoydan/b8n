@@ -68,6 +68,18 @@ export default function RootLayout({
                 src="https://cse.google.com/cse.js?cx=a279719b2965145d8"
                 strategy="lazyOnload"
             />
+            <Script
+                src="https://www.googletagmanager.com/gtag/js?id=G-JZ0S6XLWBT"
+                strategy="afterInteractive"
+            />
+            <Script id="google-analytics" strategy="afterInteractive">
+                {`
+            window.dataLayer = window.dataLayer || [];
+            function gtag(){dataLayer.push(arguments);}
+            gtag( 'js', new Date());
+            gtag('config', 'G-JZ0S6XLWBT');
+            `}
+            </Script>
         </html>
     );
 }
