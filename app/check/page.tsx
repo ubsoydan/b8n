@@ -1,7 +1,7 @@
 // @ts-nocheck
 import { db } from "@/lib/db";
-import FraudCheckForm from "components/home/FraudCheckForm";
-import { Badge } from "components/ui/badge";
+import FraudCheckForm from "@/components/home/FraudCheckForm";
+import { Badge } from "@/components/ui/badge";
 import {
     Card,
     CardContent,
