@@ -41,7 +41,7 @@ export default function NavBar() {
                             width={64}
                             height={64}
                         />
-                        <p className="text-4xl text-[#387bda] ml-1">
+                        <p className="text-4xl text-[#387bda] ml-1 mt-2">
                             <span className={font_thin.className}>
                                 Bilinmeyen
                             </span>
