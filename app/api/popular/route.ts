@@ -1,7 +1,7 @@
 import { db } from "@/lib/db";
 import { NextResponse } from "next/server";
 
-// Invalidate cached data every 10 seconds (Next.js)
+// Invalidate cached data every 10 minutes (Next.js)
 export const revalidate = 600;
 
 export async function GET() {

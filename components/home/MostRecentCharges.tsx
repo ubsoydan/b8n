@@ -14,7 +14,19 @@ export default function MostRecentCharges() {
             setCharges(result.data);
         }
         fetchData();
-    }, [charges]);
+    }, []);
+
+    useEffect(() => {
+        async function fetchData() {
+            const result = await getCharges();
+            setCharges(result.data);
+        }
+        const interval = setInterval(() => {
+            fetchData();
+        }, 15000);
+
+        return () => clearInterval(interval);
+    }, []);
 
     async function getCharges() {
         try {

@@ -2,7 +2,7 @@ import { db } from "@/lib/db";
 import { NextResponse } from "next/server";
 
 // Invalidate cached data every 10 seconds (Next.js)
-export const revalidate = 10;
+export const revalidate = 15;
 
 export async function GET() {
     const recentcharges = await db.charge.findMany({
