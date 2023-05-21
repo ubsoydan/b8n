@@ -26,7 +26,8 @@ model Charge {
 
   comments       Comment[]
 
-  @@index([views])
+  @@index([name, views(sort: Desc)])
+  @@index([name, id(sort: Desc)])
 }
 
 model Comment {
@@ -50,7 +51,7 @@ model Comment {
   deleted Boolean @default(false)
   
   @@index([chargeName])
-  @@index([likes])
+  @@index([likes(sort: Desc)])
   @@index([dislikes])
 }
 

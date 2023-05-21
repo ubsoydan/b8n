@@ -2,8 +2,11 @@ import { db } from "@/lib/db";
 import ChargeItem from "./ChargeItem";
 import { Card, CardHeader, CardTitle, CardContent } from "@/components/ui/card";
 
+export const revalidate = 60;
+
 async function getCharges() {
     const res = await db.charge.findMany({
+        select: { name: true, views: true },
         orderBy: { views: "desc" },
         take: 15,
     });
