@@ -2,9 +2,13 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 
 import ChargeItem from "./ChargeItem";
 import { db } from "@/lib/db";
+import { Charge } from "@prisma/client";
+
+export const revalidate = 10;
 
 async function getCharges() {
     const res = await db.charge.findMany({
+        select: { name: true, views: true },
         orderBy: { id: "desc" },
         take: 15,
     });
@@ -22,7 +26,7 @@ export default async function MostRecentCharges() {
             </CardHeader>
             <CardContent>
                 <ul>
-                    {charges.map((charge) => {
+                    {charges.map((charge: any) => {
                         return (
                             <ChargeItem
                                 key={charge.name}
