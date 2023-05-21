@@ -1,20 +1,30 @@
-import { db } from "@/lib/db";
-import ChargeItem from "./ChargeItem";
+"use client";
+import { useState, useEffect } from "react";
+const axios = require("axios").default;
 import { Card, CardHeader, CardTitle, CardContent } from "@/components/ui/card";
+import ChargeItem from "./ChargeItem";
 
-export const revalidate = 60;
+export default function MostPopularCharges() {
+    const [charges, setCharges] = useState([]);
 
-async function getCharges() {
-    const res = await db.charge.findMany({
-        select: { name: true, views: true },
-        orderBy: { views: "desc" },
-        take: 15,
-    });
-    return res;
-}
+    useEffect(() => {
+        async function fetchData() {
+            const result = await getCharges();
+            setCharges(result.data);
+        }
+        fetchData();
+    }, [charges]);
 
-async function MostPopularCharges() {
-    const charges = await getCharges();
+    async function getCharges() {
+        try {
+            const res = await axios.get("/api/popular");
+            return res;
+        } catch (err) {
+            throw new Error("Failed fetching most popular charges!", {
+                cause: err,
+            });
+        }
+    }
 
     return (
         <Card className="w-full h-auto lg:w-1/2 mr-4">
@@ -25,18 +35,18 @@ async function MostPopularCharges() {
             </CardHeader>
             <CardContent>
                 <ul>
-                    {charges.map((charge) => {
-                        return (
-                            <ChargeItem
-                                key={charge.name}
-                                chargeName={charge.name}
-                            />
-                        );
-                    })}
+                    {Array.isArray(charges)
+                        ? charges.map((charge: any) => {
+                              return (
+                                  <ChargeItem
+                                      key={charge.name}
+                                      chargeName={charge.name}
+                                  />
+                              );
+                          })
+                        : null}
                 </ul>
             </CardContent>
         </Card>
     );
 }
-
-export default MostPopularCharges;

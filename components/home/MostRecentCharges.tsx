@@ -1,22 +1,32 @@
+"use client";
+
+import { useState, useEffect } from "react";
+const axios = require("axios").default;
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-
 import ChargeItem from "./ChargeItem";
-import { db } from "@/lib/db";
-import { Charge } from "@prisma/client";
 
-export const revalidate = 10;
+export default function MostRecentCharges() {
+    const [charges, setCharges] = useState([]);
 
-async function getCharges() {
-    const res = await db.charge.findMany({
-        select: { name: true, views: true },
-        orderBy: { id: "desc" },
-        take: 15,
-    });
-    return res;
-}
+    useEffect(() => {
+        async function fetchData() {
+            const result = await getCharges();
+            setCharges(result.data);
+        }
+        fetchData();
+    }, [charges]);
 
-export default async function MostRecentCharges() {
-    const charges = await getCharges();
+    async function getCharges() {
+        try {
+            const res = await axios.get("/api/recent");
+            return res;
+        } catch (err) {
+            throw new Error("Failed fetching most recent charges!", {
+                cause: err,
+            });
+        }
+    }
+
     return (
         <Card className="w-full h-auto my-6 md:my-0 lg:w-1/2">
             <CardHeader>
@@ -26,14 +36,16 @@ export default async function MostRecentCharges() {
             </CardHeader>
             <CardContent>
                 <ul>
-                    {charges.map((charge: any) => {
-                        return (
-                            <ChargeItem
-                                key={charge.name}
-                                chargeName={charge.name}
-                            />
-                        );
-                    })}
+                    {Array.isArray(charges)
+                        ? charges.map((charge: any) => {
+                              return (
+                                  <ChargeItem
+                                      key={charge.name}
+                                      chargeName={charge.name}
+                                  />
+                              );
+                          })
+                        : null}
                 </ul>
             </CardContent>
         </Card>
