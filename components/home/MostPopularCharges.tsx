@@ -15,18 +15,18 @@ export default function MostPopularCharges() {
         fetchData();
     }, []);
 
-    useEffect(() => {
-        async function fetchData() {
-            const result = await getCharges();
-            setCharges(result.data);
-        }
+    // useEffect(() => {
+    //     async function fetchData() {
+    //         const result = await getCharges();
+    //         setCharges(result.data);
+    //     }
 
-        const interval = setInterval(() => {
-            fetchData();
-        }, 600000); // 10 min
+    //     const interval = setInterval(() => {
+    //         fetchData();
+    //     }, 3600000); // 10 min
 
-        return () => clearInterval(interval);
-    }, []);
+    //     return () => clearInterval(interval);
+    // }, []);
 
     async function getCharges() {
         try {

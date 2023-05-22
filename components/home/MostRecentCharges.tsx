@@ -16,17 +16,17 @@ export default function MostRecentCharges() {
         fetchData();
     }, []);
 
-    useEffect(() => {
-        async function fetchData() {
-            const result = await getCharges();
-            setCharges(result.data);
-        }
-        const interval = setInterval(() => {
-            fetchData();
-        }, 15000);
+    // useEffect(() => {
+    //     async function fetchData() {
+    //         const result = await getCharges();
+    //         setCharges(result.data);
+    //     }
+    //     const interval = setInterval(() => {
+    //         fetchData();
+    //     }, 15000);
 
-        return () => clearInterval(interval);
-    }, []);
+    //     return () => clearInterval(interval);
+    // }, []);
 
     async function getCharges() {
         try {
