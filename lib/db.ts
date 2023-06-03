@@ -1,5 +1,4 @@
-// Since NEXT API functions run in a serverless env,
-// gonna cache Prisma client and reuse it as much as possible so that I can avoid having too many connections at once.
+// For dev env: Cache Prisma client and reuse it as much as possible so that I can avoid having too many connections at once.
 
 import { PrismaClient } from "@prisma/client";
 
